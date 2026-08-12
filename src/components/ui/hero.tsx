@@ -7,7 +7,7 @@ import {
   ShieldCheck,
 } from "lucide-react"
 
-import carte from "@/assets/carte.webp"
+import gps from "@/assets/gps.jpg"
 
 export default function Hero() {
   return (
@@ -156,7 +156,7 @@ export default function Hero() {
             <div className="relative h-[420px] overflow-hidden rounded-[24px]">
 
               <img
-                src={carte}
+                src={gps}
                 alt="Carte routière AutoGuide+"
                 className="h-full w-full object-cover"
               />
