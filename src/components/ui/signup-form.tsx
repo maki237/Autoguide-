@@ -94,7 +94,7 @@ export function SignupForm() {
             </p>
 
             <p className="text-xs text-white/60">
-              Assistance intelligente
+              Assistance routière
             </p>
           </div>
 
@@ -169,7 +169,7 @@ export function SignupForm() {
 
               <span className="h-1.5 w-1.5 rounded-full bg-[#1B5FA8]" />
 
-              Assistance automobile intelligente
+              Assistance automobile
 
             </div>
 

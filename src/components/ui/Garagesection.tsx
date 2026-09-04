@@ -1,7 +1,6 @@
 import {
   MapPin,
   ShieldCheck,
-  Star,
   Navigation,
   Phone,
 } from "lucide-react"

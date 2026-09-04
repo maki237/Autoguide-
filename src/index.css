@@ -5,6 +5,26 @@
 html, body, #root { 
   margin: 0; padding: 0; }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
 
 @custom-variant dark (&:is(.dark *));
 

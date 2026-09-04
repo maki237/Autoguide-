@@ -6,19 +6,11 @@ import {
   ArrowRight,
   ShieldCheck,
 } from "lucide-react"
-
-import gps from "@/assets/gps.jpg"
+import OpenStreetMap from "@/components/ui/OpenStreetMap"
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
-
-      {/* Décoration */}
-
-      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
-
-      <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-sky-100/40 blur-3xl" />
-
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
 
@@ -30,7 +22,7 @@ export default function Hero() {
 
             <ShieldCheck className="h-4 w-4" />
 
-            Votre assistant routier intelligent
+            Votre assistance routière
 
           </div>
 
@@ -40,7 +32,7 @@ export default function Hero() {
             Votre compagnon
 
             <span className="block text-[#1468A8]">
-              intelligent sur toutes les routes.
+              sur toutes les routes.
             </span>
 
           </h1>
@@ -127,7 +119,7 @@ export default function Hero() {
 
             <div className="flex items-center gap-2">
               <MapPinned className="h-4 w-4 text-blue-600" />
-              Itinéraire intelligent
+              Itinéraire optimisé
             </div>
 
             <div className="flex items-center gap-2">
@@ -149,52 +141,13 @@ export default function Hero() {
 
         <div className="relative">
 
-          <div className="absolute -inset-4 rounded-[35px] bg-blue-100/40 blur-2xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-[#E6F1FB] p-2 shadow-xl shadow-blue-900/10">
 
-          <div className="relative overflow-hidden rounded-[30px] border border-blue-100 bg-[#E6F1FB] p-3 shadow-2xl shadow-blue-900/10">
-
-            <div className="relative h-[420px] overflow-hidden rounded-[24px]">
-
-              <img
-                src={gps}
-                alt="Carte routière AutoGuide+"
-                className="h-full w-full object-cover"
-              />
-
-              {/* Overlay */}
-
-              <div className="absolute inset-0 bg-blue-900/5" />
-
-
-              {/* POINT DE DÉPART */}
-
-              <div className="absolute left-[22%] top-[65%]">
-
-                <div className="relative flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 ring-4 ring-white">
-
-                  <span className="h-2 w-2 rounded-full bg-white" />
-
-                </div>
-
-              </div>
-
-
-              {/* DESTINATION */}
-
-              <div className="absolute right-[22%] top-[25%]">
-
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow-lg ring-4 ring-white">
-
-                  <MapPinned className="h-3.5 w-3.5" />
-
-                </div>
-
-              </div>
-
-
+            <div className="relative h-[420px] overflow-hidden rounded-xl">
+              <OpenStreetMap />
               {/* CARD ITINÉRAIRE */}
 
-              <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/70 bg-white/95 p-4 shadow-xl backdrop-blur">
+              <div className="absolute bottom-5 left-5 right-5 z-[1000] rounded-xl border border-white/70 bg-white/95 p-4 shadow-lg backdrop-blur">
 
                 <div className="flex items-center justify-between">
 

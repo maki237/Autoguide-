@@ -18,7 +18,7 @@ const steps = [
     icon: Route,
     title: "Calculez le meilleur itinéraire",
     description:
-      "AutoGuide+ analyse votre trajet et vous propose un itinéraire optimal.",
+      "AutoGuide+ compare votre trajet et vous propose un itinéraire adapté.",
   },
   {
     number: "03",

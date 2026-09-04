@@ -47,7 +47,7 @@ export default function AlertSection() {
               <div>
 
                 <h3 className="font-semibold">
-                  Notifications intelligentes
+                  Notifications de trajet
                 </h3>
 
                 <p className="mt-1 text-sm text-slate-500">

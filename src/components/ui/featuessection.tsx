@@ -27,7 +27,7 @@ export default function FeaturesSection() {
           </p>
 
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            L'intelligence au service de votre conduite
+            Des outils utiles pour votre conduite
           </h2>
 
           <p className="mt-4 text-slate-500">
@@ -44,7 +44,7 @@ export default function FeaturesSection() {
 
           <FeatureCard
             icon={Route}
-            title="Navigation intelligente"
+            title="Navigation"
             description="Calculez l'itinéraire optimal en tenant compte de la distance, du temps de trajet et des conditions de circulation."
             color="blue"
             large
@@ -66,7 +66,7 @@ export default function FeaturesSection() {
 
           <FeatureCard
             icon={BellRing}
-            title="Alertes connectées"
+            title="Alertes de trajet"
             description="Recevez des notifications utiles concernant votre trajet, les risques routiers et les informations importantes."
             color="amber"
           />

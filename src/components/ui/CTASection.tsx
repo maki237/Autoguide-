@@ -25,7 +25,7 @@ export default function CTASection() {
             <p className="mx-auto mt-4 max-w-xl leading-6 text-white/80">
 
               Préparez vos trajets, trouvez un garage à proximité
-              et bénéficiez d'un accompagnement intelligent
+              et bénéficiez d'un accompagnement adapté
               avec AutoGuide+.
 
             </p>
