@@ -19,14 +19,13 @@ export default function CTASection() {
           <div className="relative">
 
             <h2 className="text-3xl font-bold tracking-[-0.03em] sm:text-4xl">
-              Prenez la route en toute confiance.
+              Prêt à prendre la route autrement ?
             </h2>
 
             <p className="mx-auto mt-4 max-w-xl leading-6 text-white/80">
 
-              Préparez vos trajets, trouvez un garage à proximité
-              et bénéficiez d'un accompagnement adapté
-              avec AutoGuide+.
+              Votre itinéraire, votre environnement et les solutions autour de
+              vous réunis dans un seul copilote.
 
             </p>
 
@@ -51,7 +50,7 @@ export default function CTASection() {
               "
             >
 
-              Commencer gratuitement
+              Commencer avec AutoGuide+
 
               <ArrowRight className="h-4 w-4" />
 

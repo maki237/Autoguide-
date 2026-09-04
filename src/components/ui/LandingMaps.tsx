@@ -3,6 +3,7 @@ import {
   TileLayer,
   Marker,
   Popup,
+  Polyline,
 } from "react-leaflet"
 
 import L from "leaflet"
@@ -42,11 +43,14 @@ const garages = [
   },
 ]
 
+const driverPosition: [number, number] = [3.848, 11.502]
+const destination: [number, number] = [3.8843, 11.5021]
+
 export default function LandingMap() {
   return (
     <div className="w-full h-full overflow-hidden rounded-2xl">
       <MapContainer
-        center={[3.848, 11.502]}
+        center={driverPosition}
         zoom={13}
         scrollWheelZoom={true}
         className="w-full h-full"
@@ -55,6 +59,19 @@ export default function LandingMap() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        <Polyline
+          positions={[driverPosition, [3.862, 11.509], destination]}
+          pathOptions={{ color: "#1468A8", weight: 5, opacity: 0.9 }}
+        />
+
+        <Marker position={driverPosition} icon={defaultIcon}>
+          <Popup>Votre position : Yaoundé</Popup>
+        </Marker>
+
+        <Marker position={destination} icon={defaultIcon}>
+          <Popup>Destination : Bastos</Popup>
+        </Marker>
 
         {garages.map((garage) => (
           <Marker

@@ -2,7 +2,7 @@ import {
   Search,
   Route,
   Wrench,
-  
+  ShieldCheck,
 } from "lucide-react"
 
 const steps = [
@@ -23,9 +23,16 @@ const steps = [
   {
     number: "03",
     icon: Wrench,
-    title: "Trouvez un garage",
+    title: "Trouvez un garage disponible",
     description:
       "En cas de panne, localisez rapidement un garage à proximité.",
+  },
+  {
+    number: "04",
+    icon: ShieldCheck,
+    title: "Recevez la meilleure recommandation",
+    description:
+      "AutoGuide+ compare les options et vous aide à choisir la solution la plus pertinente.",
   },
 ]
 
@@ -56,11 +63,11 @@ export default function HowItWorks() {
         </div>
 
 
-        <div className="relative mt-10 grid gap-5 sm:mt-14 md:grid-cols-3 md:gap-8">
+        <div className="relative mt-10 grid gap-5 sm:mt-14 md:grid-cols-4 md:gap-6">
 
           {/* Ligne */}
 
-          <div className="absolute left-[20%] right-[20%] top-10 hidden h-px bg-blue-100 md:block" />
+          <div className="absolute left-[12%] right-[12%] top-10 hidden h-px bg-blue-100 md:block" />
 
 
           {steps.map((step) => {

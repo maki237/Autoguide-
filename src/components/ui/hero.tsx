@@ -5,9 +5,13 @@ import {
   Wrench,
   ArrowRight,
   ShieldCheck,
+  Sparkles,
+  Clock3,
+  Activity,
+  CheckCircle2,
 } from "lucide-react"
 
-import OpenStreetMap from "@/components/ui/OpenStreetMap"
+import LandingMap from "@/components/ui/LandingMaps"
 
 export default function Hero() {
   return (
@@ -37,10 +41,10 @@ export default function Hero() {
 
           <h1 className="max-w-2xl text-[clamp(2.5rem,6vw,4.8rem)] font-bold leading-[0.98] tracking-[-0.045em] text-slate-950">
 
-            Votre compagnon
+            Votre route.
 
             <span className="mt-2 block text-[#1468A8]">
-              votre route, autrement.
+              Notre intelligence.
             </span>
 
           </h1>
@@ -48,9 +52,9 @@ export default function Hero() {
 
           <p className="mt-6 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
 
-            Calculez vos itinéraires optimaux, trouvez rapidement
-            un garage à proximité en cas de panne et voyagez
-            en toute sérénité avec AutoGuide+.
+            AutoGuide+ analyse votre trajet, votre environnement et les
+            garages disponibles pour vous proposer la meilleure solution sur
+            la route.
 
           </p>
 
@@ -147,25 +151,53 @@ export default function Hero() {
 
         {/* VISUEL CARTE */}
 
-        <div className="relative">
+        <div className="relative lg:pt-8">
 
           <div className="absolute -inset-4 rounded-[35px] bg-blue-100/40 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-[24px] border border-blue-100 bg-[#E6F1FB] p-2.5 shadow-[0_24px_70px_rgba(20,104,168,0.16)] sm:rounded-[30px] sm:p-3">
 
-            <div className="relative h-[330px] overflow-hidden rounded-[19px] sm:h-[420px] sm:rounded-[24px]">
-              <OpenStreetMap />
+            <div className="relative h-[360px] overflow-hidden rounded-[19px] sm:h-[460px] sm:rounded-[24px]">
+              <LandingMap />
             </div>
 
-            {/* Overlay */}
+            <div className="pointer-events-none absolute left-5 top-5 z-[1000] flex items-center gap-2 rounded-xl border border-white/80 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+              <Sparkles className="h-4 w-4 text-[#1468A8]" />
+              AutoGuide+ analyse votre route
+            </div>
+
+            <div className="pointer-events-none absolute right-5 top-5 z-[1000] flex items-center gap-2 rounded-xl border border-white/80 bg-white/95 px-3 py-2 text-xs font-semibold text-green-700 shadow-md">
+              <Activity className="h-4 w-4" />
+              Trafic faible
+            </div>
+
+            <div className="pointer-events-none absolute bottom-24 left-5 z-[1000] hidden w-56 rounded-2xl border border-white/80 bg-white/95 p-4 shadow-lg backdrop-blur sm:block">
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                <Sparkles className="h-4 w-4 text-[#1468A8]" />
+                Recommandation
+              </div>
+              <p className="mt-2 text-sm font-bold text-slate-800">
+                Garage Central
+              </p>
+              <div className="mt-2 flex items-center justify-between text-xs">
+                <span className="flex items-center gap-1 text-slate-500">
+                  <MapPinned className="h-3.5 w-3.5" /> 2,1 km
+                </span>
+                <span className="flex items-center gap-1 text-green-700">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Disponible
+                </span>
+              </div>
+            </div>
+
             {/* CARD ITINÉRAIRE */}
-            <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-white/70 bg-white/95 p-3 shadow-xl backdrop-blur sm:bottom-5 sm:left-5 sm:right-5 sm:p-4">
+            <div className="absolute bottom-3 left-3 right-3 z-[1000] rounded-2xl border border-white/70 bg-white/95 p-3 shadow-xl backdrop-blur sm:bottom-5 sm:left-5 sm:right-5 sm:p-4">
 
               <div className="flex items-center justify-between">
 
                 <div>
-                  <p className="text-xs font-medium text-slate-400">
-                    Itinéraire optimal
+                  <p className="flex items-center gap-1 text-xs font-medium text-slate-400">
+                    <Clock3 className="h-3.5 w-3.5" />
+                    Route optimale
                   </p>
 
                   <p className="mt-1 font-semibold text-slate-800">

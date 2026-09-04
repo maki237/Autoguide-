@@ -3,6 +3,8 @@ import {
   AlertTriangle,
   ShieldAlert,
   Clock3,
+  Sparkles,
+  CheckCircle2,
 } from "lucide-react"
 
 export default function AlertSection() {
@@ -19,7 +21,7 @@ export default function AlertSection() {
 
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
 
-            Des alertes utiles
+            Votre copilote
             <span className="block text-amber-500">
               au bon moment.
             </span>
@@ -28,8 +30,8 @@ export default function AlertSection() {
 
           <p className="mt-5 leading-7 text-slate-500">
 
-            Recevez des informations importantes pour mieux anticiper
-            les problèmes sur votre trajet et améliorer votre sécurité.
+            L'application transforme les données du trajet en décisions
+            simples, lisibles et actionnables.
 
           </p>
 
@@ -47,11 +49,11 @@ export default function AlertSection() {
               <div>
 
                 <h3 className="font-semibold">
-                  Notifications de trajet
+                  Analyse en temps réel
                 </h3>
 
                 <p className="mt-1 text-sm text-slate-500">
-                  Soyez informé des événements importants liés à votre trajet.
+                  Les informations utiles apparaissent au moment où vous en avez besoin.
                 </p>
 
               </div>
@@ -70,11 +72,11 @@ export default function AlertSection() {
               <div>
 
                 <h3 className="font-semibold">
-                  Alertes de sécurité
+                  Situation comprise
                 </h3>
 
                 <p className="mt-1 text-sm text-slate-500">
-                  Identifiez les situations nécessitant davantage de vigilance.
+                  Votre position et votre trajet restent au centre de l'analyse.
                 </p>
 
               </div>
@@ -93,11 +95,11 @@ export default function AlertSection() {
               <div>
 
                 <h3 className="font-semibold">
-                  Gain de temps
+                  Choix recommandé
                 </h3>
 
                 <p className="mt-1 text-sm text-slate-500">
-                  Préparez vos déplacements plus efficacement.
+                  Comparez les garages avant de prendre une décision.
                 </p>
 
               </div>
@@ -119,14 +121,14 @@ export default function AlertSection() {
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50">
 
-                <BellRing className="h-5 w-5 text-amber-600" />
+                <Sparkles className="h-5 w-5 text-amber-600" />
 
               </div>
 
               <div>
 
                 <p className="font-bold text-slate-800">
-                  AutoGuide+
+                  AutoGuide+ Copilote
                 </p>
 
                 <p className="text-xs text-slate-400">
@@ -147,14 +149,17 @@ export default function AlertSection() {
                 <div>
 
                   <p className="font-semibold text-amber-900">
-                    Information sur votre trajet
+                    J'ai trouvé 3 garages adaptés
                   </p>
 
                   <p className="mt-1 text-sm leading-5 text-amber-800/80">
-                    Une information importante pourrait affecter
-                    votre déplacement.
+                    Garage Central est disponible à 2,1 km.
                   </p>
 
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-green-700">
+                  <CheckCircle2 className="h-4 w-4" />
+                  Recommandation prête
                 </div>
 
               </div>

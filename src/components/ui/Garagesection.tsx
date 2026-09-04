@@ -67,25 +67,29 @@ export default function GarageSection() {
               </div>
 
 
+              <div className="absolute left-5 top-5 rounded-xl border border-white/80 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+                <span className="mr-1 text-[#1468A8]">3</span> garages analysés
+              </div>
+
               {/* Carte garage */}
 
-              <div className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white p-4 shadow-xl">
+              <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl">
 
                 <div className="flex items-center justify-between">
 
                   <div>
 
                     <p className="font-semibold text-slate-800">
-                      Garage le plus proche
+                      Garage recommandé
                     </p>
 
                     <p className="mt-1 text-xs text-slate-500">
-                      1,2 km · environ 4 min
+                      Garage Central · 2,1 km
                     </p>
 
                   </div>
 
-                  <button className="rounded-xl bg-blue-600 p-2.5 text-white">
+                  <button className="rounded-xl bg-blue-600 p-2.5 text-white" aria-label="Voir l'itinéraire vers le garage">
 
                     <Navigation className="h-4 w-4" />
 
@@ -123,9 +127,9 @@ export default function GarageSection() {
 
           <p className="mt-5 leading-7 text-slate-500">
 
-            Une panne peut arriver à tout moment. AutoGuide+ utilise
-            votre localisation pour vous aider à identifier rapidement
-            les garages disponibles autour de vous.
+            Une panne peut arriver à tout moment. AutoGuide+ croise votre
+            position, la distance et la disponibilité pour vous orienter vers
+            la solution la plus pertinente.
 
           </p>
 
@@ -143,7 +147,7 @@ export default function GarageSection() {
               <div>
 
                 <h3 className="font-semibold text-slate-800">
-                  Garages géolocalisés
+                  Localisation immédiate
                 </h3>
 
                 <p className="text-sm text-slate-500">
@@ -166,11 +170,11 @@ export default function GarageSection() {
               <div>
 
                 <h3 className="font-semibold text-slate-800">
-                  Garages référencés
+                  Analyse des options
                 </h3>
 
                 <p className="text-sm text-slate-500">
-                  Consultez les informations disponibles sur les garages.
+                  Comparez distance, disponibilité et temps de trajet.
                 </p>
 
               </div>
@@ -189,11 +193,11 @@ export default function GarageSection() {
               <div>
 
                 <h3 className="font-semibold text-slate-800">
-                  Contact rapide
+                  Recommandation claire
                 </h3>
 
                 <p className="text-sm text-slate-500">
-                  Accédez facilement aux informations du garage.
+                  Recevez une option adaptée à votre situation.
                 </p>
 
               </div>

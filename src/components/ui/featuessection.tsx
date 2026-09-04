@@ -27,12 +27,12 @@ export default function FeaturesSection() {
           </p>
 
           <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-slate-900 sm:text-4xl">
-            Tout ce qu'il faut pour garder le cap
+            L'intelligence au service de votre route
           </h2>
 
           <p className="mt-4 text-slate-500">
-            Une suite complète d'outils pour optimiser vos déplacements,
-            localiser les garages et vous accompagner en cas de panne.
+            AutoGuide+ croise la distance, la localisation, la disponibilité et
+            le temps de trajet pour vous aider à prendre la bonne décision.
           </p>
 
         </div>
