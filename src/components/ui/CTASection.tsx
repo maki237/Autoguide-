@@ -3,11 +3,11 @@ import { ArrowRight } from "lucide-react"
 
 export default function CTASection() {
   return (
-    <section className="border-t border-slate-200/80 bg-white px-5 py-10 sm:py-12 lg:px-8">
+    <section className="border-t border-slate-200/80 bg-white px-5 py-8 sm:py-10 lg:px-8">
 
       <div className="mx-auto max-w-7xl">
 
-        <div className="relative overflow-hidden rounded-[24px] bg-[#1468A8] px-6 py-12 text-center text-white sm:rounded-[30px] sm:px-10 sm:py-16">
+        <div className="relative overflow-hidden rounded-[24px] bg-[#1468A8] px-6 py-10 text-center text-white sm:rounded-[30px] sm:px-10 sm:py-12">
 
           {/* Décorations */}
 

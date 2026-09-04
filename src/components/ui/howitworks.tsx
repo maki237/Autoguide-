@@ -40,7 +40,7 @@ export default function HowItWorks() {
   return (
     <section
       id="fonctionnement"
-      className="border-t border-slate-200/80 bg-white px-5 py-16 sm:py-20 lg:px-8"
+      className="border-t border-slate-200/80 bg-white px-5 py-11 sm:py-14 lg:px-8"
     >
 
       <div className="mx-auto max-w-7xl">
@@ -63,7 +63,7 @@ export default function HowItWorks() {
         </div>
 
 
-        <div className="relative mt-10 grid gap-5 sm:mt-14 md:grid-cols-4 md:gap-6">
+        <div className="relative mt-8 grid gap-5 sm:mt-10 md:grid-cols-4 md:gap-6">
 
           {/* Ligne */}
 

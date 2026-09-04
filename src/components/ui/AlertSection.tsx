@@ -9,9 +9,9 @@ import {
 
 export default function AlertSection() {
   return (
-    <section className="border-t border-slate-200/80 bg-white px-5 py-16 sm:py-20 lg:px-8">
+    <section className="border-t border-slate-200/80 bg-white px-5 py-11 sm:py-14 lg:px-8">
 
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
 
         <div>
 

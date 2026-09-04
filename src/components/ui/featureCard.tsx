@@ -30,7 +30,7 @@ export default function FeatureCard({
         border
         border-slate-100
         bg-white
-        p-6
+        p-5
         shadow-sm
         transition-all
         duration-300

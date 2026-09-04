@@ -13,7 +13,7 @@ export default function FeaturesSection() {
   return (
     <section
       id="solutions"
-      className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-16 sm:py-20 lg:px-8"
+      className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-11 sm:py-14 lg:px-8"
     >
 
       <div className="mx-auto max-w-7xl">
@@ -40,7 +40,7 @@ export default function FeaturesSection() {
 
         {/* CARTES */}
 
-        <div className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-2 lg:grid-cols-3">
 
           <FeatureCard
             icon={Route}

@@ -6,7 +6,7 @@ import {
 
 export default function TrustSection() {
   return (
-    <section className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-16 sm:py-20 lg:px-8">
+    <section className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-11 sm:py-14 lg:px-8">
 
       <div className="mx-auto max-w-7xl">
 

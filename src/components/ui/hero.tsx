@@ -24,7 +24,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-sky-100/40 blur-3xl" />
 
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8 lg:py-24">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-5 py-10 sm:py-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 lg:px-8 lg:py-16">
 
         {/* TEXTE */}
 
@@ -61,7 +61,7 @@ export default function Hero() {
 
           {/* BOUTONS */}
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 
             <Link
               to="/login"
@@ -127,7 +127,7 @@ export default function Hero() {
 
           {/* PETITES INFOS */}
 
-          <div className="mt-8 grid max-w-lg grid-cols-1 gap-3 text-sm text-slate-600 sm:grid-cols-3">
+          <div className="mt-6 grid max-w-lg grid-cols-1 gap-2 text-sm text-slate-600 sm:grid-cols-3">
 
             <div className="flex items-center gap-2 rounded-lg bg-white/70 px-2 py-1.5">
               <MapPinned className="h-4 w-4 text-blue-600" />
@@ -151,13 +151,13 @@ export default function Hero() {
 
         {/* VISUEL CARTE */}
 
-        <div className="relative lg:pt-8">
+        <div className="relative lg:pt-4">
 
           <div className="absolute -inset-4 rounded-[35px] bg-blue-100/40 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-[24px] border border-blue-100 bg-[#E6F1FB] p-2.5 shadow-[0_24px_70px_rgba(20,104,168,0.16)] sm:rounded-[30px] sm:p-3">
 
-            <div className="relative h-[360px] overflow-hidden rounded-[19px] sm:h-[460px] sm:rounded-[24px]">
+            <div className="relative h-[320px] overflow-hidden rounded-[19px] sm:h-[420px] sm:rounded-[24px]">
               <LandingMap />
             </div>
 
