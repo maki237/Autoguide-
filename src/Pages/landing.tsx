@@ -7,8 +7,29 @@ import AlertSection from "@/components/ui/AlertSection"
 import TrustSection from "@/components/ui/trustsection"
 import CTASection from "@/components/ui/CTASection"
 import Footer from "@/components/ui/Footer"
+import { useEffect } from "react"
 
 export default function LandingPage() {
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"))
+    elements.forEach((element) => element.classList.add("reveal-on-scroll"))
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12 },
+    )
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
 
@@ -16,17 +37,17 @@ export default function LandingPage() {
 
       <Hero />
 
-      <FeaturesSection />
+      <div data-reveal><FeaturesSection /></div>
 
-      <HowItWorks />
+      <div data-reveal><HowItWorks /></div>
 
-      <GarageSection />
+      <div data-reveal><GarageSection /></div>
 
-      <AlertSection />
+      <div data-reveal><AlertSection /></div>
 
-      <TrustSection />
+      <div data-reveal><TrustSection /></div>
 
-      <CTASection />
+      <div data-reveal><CTASection /></div>
 
       <Footer />
 

@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom"
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 import logo from "@/assets/LOGO.png"
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const closeMenu = () => setIsOpen(false)
+
   return (
     <header className="sticky top-0 z-[1100] border-b border-slate-100 bg-white/90 backdrop-blur-md">
 
@@ -66,6 +72,7 @@ export default function Navbar() {
 
           <Link
             to="/login"
+            onClick={closeMenu}
             className="hidden text-sm font-medium text-slate-600 transition hover:text-blue-600 sm:block"
           >
             Se connecter
@@ -92,9 +99,48 @@ export default function Navbar() {
             <span className="hidden sm:inline">Commencer</span>
           </Link>
 
+          <button
+            type="button"
+            aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((open) => !open)}
+            className="rounded-xl border border-slate-200 p-2 text-slate-700 md:hidden"
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+
         </div>
 
       </div>
+
+      {isOpen && (
+        <nav className="border-t border-slate-100 bg-white px-4 py-4 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-1">
+            {[
+              ["#solutions", "Solutions"],
+              ["#garages", "Garages"],
+              ["#fonctionnement", "Comment ça marche"],
+              ["#aide", "Aide"],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={closeMenu}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-blue-700"
+              >
+                {label}
+              </a>
+            ))}
+            <Link
+              to="/login"
+              onClick={closeMenu}
+              className="mt-2 rounded-xl bg-[#1468A8] px-3 py-2.5 text-center text-sm font-semibold text-white"
+            >
+              Se connecter
+            </Link>
+          </div>
+        </nav>
+      )}
 
     </header>
   )
