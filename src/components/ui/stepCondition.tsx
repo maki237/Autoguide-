@@ -1,4 +1,6 @@
+
 import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
 interface StepConditionsProps {
@@ -14,18 +16,16 @@ export function StepConditions({
   onPrevious,
   isLoading,
 }: StepConditionsProps) {
-
   return (
     <div className="space-y-5">
 
+      {/* CONDITIONS */}
       <div className="flex items-start gap-2.5">
 
         <Checkbox
           id="terms"
           checked={accepted}
-          onCheckedChange={(value) =>
-            setAccepted(value === true)
-          }
+          onCheckedChange={(value) => setAccepted(value === true)}
           className="mt-0.5"
         />
 
@@ -52,33 +52,42 @@ export function StepConditions({
 
       </div>
 
+      {/* BOUTONS */}
       <div className="flex gap-3">
 
-        <button
+        {/* RETOUR */}
+        <Button
           type="button"
+          variant="outline"
           onClick={onPrevious}
-          className="h-12 flex-1 rounded-xl border border-gray-200 bg-white text-sm font-semibold text-gray-600"
+          className="h-12 flex-1 rounded-xl border-gray-200 bg-white text-sm font-semibold text-gray-600 hover:bg-gray-50"
         >
           Retour
-        </button>
+        </Button>
 
-        <button
+        {/* CRÉER MON COMPTE */}
+        <Button
           type="submit"
+          variant="continue"
+          size="continue"
           disabled={!accepted || isLoading}
-          className="group h-12 flex-1 rounded-xl bg-[#1B5FA8] text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLoading ? (
             "Création..."
           ) : (
             <>
               Créer mon compte
-              <ArrowRight className="ml-2 inline h-4 w-4" />
+
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1"
+              />
             </>
           )}
-        </button>
+        </Button>
 
       </div>
 
     </div>
   )
 }
+

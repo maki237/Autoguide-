@@ -1,27 +1,17 @@
-import { useState } from "react"
+
+import {
+  useState,
+  type ComponentProps,
+  type FormEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
+
 import { cn } from "@/lib/utils"
 import logo from "@/assets/LOGO.png"
-import { Link } from "react-router-dom"
-
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-} from "@/components/ui/field"
-
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
+import carte from "@/assets/carte.webp"
+import { Link, useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 import {
   User,
@@ -30,255 +20,525 @@ import {
   EyeOff,
   Sparkles,
   ShieldCheck,
+  ArrowRight,
 } from "lucide-react"
 
 export function LoginForm({
   className,
   ...props
-}: React.ComponentProps<"div">) {
-  const [showPassword, setShowPassword] = useState(false)
+}: ComponentProps<"div">) {
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  // ============================================================
+  // CONNEXION
+  // ============================================================
+
+  const handleLogin = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault()
+
+    if (!email || !password) {
+      toast.error("Champs obligatoires", {
+        description:
+          "Veuillez renseigner votre email et votre mot de passe.",
+      })
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          data?.detail ||
+            data?.message ||
+            "Email ou mot de passe incorrect."
+        )
+      }
+
+      // ========================================================
+      // SAUVEGARDE DE L'UTILISATEUR
+      // ========================================================
+
+      const storedUser = {
+        ...data.user,
+        fullName:
+          data.user?.fullName ||
+          localStorage.getItem("pendingFullName") ||
+          data.user?.name ||
+          "",
+      }
+
+      localStorage.setItem("user", JSON.stringify(storedUser))
+      localStorage.removeItem("pendingFullName")
+
+      toast.success("Connexion réussie ! 🎉", {
+        description: `Bienvenue ${storedUser.fullName || "sur AutoGuide+"}.`,
+        duration: 1500,
+      })
+
+      // ========================================================
+      // REDIRECTION SELON LE RÔLE
+      // ========================================================
+
+      setTimeout(() => {
+        if (data.user?.role === "AUTOMOBILISTE") {
+          navigate("/dashboard")
+        } else if (data.user?.role === "GARAGISTE") {
+          navigate("/garagiste/dashboard")
+        } else {
+          navigate("/")
+        }
+      }, 1500)
+    } catch (error) {
+      toast.error("Échec de la connexion", {
+        description:
+          error instanceof Error
+            ? error.message
+            : "Une erreur est survenue.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div
       className={cn(
-        "relative flex w-full items-center justify-center",
+        "min-h-screen w-full bg-[#EAF3F8] p-4 md:p-6 lg:p-10",
         className
       )}
       {...props}
     >
+      {/* =====================================================
+          GRAND CONTENEUR
+      ====================================================== */}
 
-      {/* =========================================
-          CARD PRINCIPALE
-      ========================================== */}
-
-      <Card
+      <div
         className="
           relative
-          z-10
+          mx-auto
+          flex
+          min-h-[calc(100vh-2rem)]
           w-full
-          max-w-[460px]
+          max-w-6xl
           overflow-hidden
-          rounded-[28px]
-          border
-          border-blue-100
-          bg-white/95
-          shadow-[0_20px_60px_rgba(30,64,175,0.14)]
-          backdrop-blur-sm
-          transition-all
-          duration-500
-          hover:-translate-y-1
-          hover:shadow-[0_25px_70px_rgba(30,64,175,0.18)]
-          animate-in
-          fade-in
-          zoom-in-95
-          duration-700
+          rounded-[30px]
+          bg-white
+          shadow-[0_25px_80px_rgba(15,86,141,0.16)]
         "
       >
-
-        {/* =========================================
-            LIGNE SUPÉRIEURE
-        ========================================== */}
-
-        <div
-          className="
-            absolute
-            left-0
-            right-0
-            top-0
-            h-[4px]
-            bg-gradient-to-r
-            from-blue-600
-            via-sky-400
-            to-blue-700
-          "
-        />
-
-        {/* =========================================
-            CERCLES DÉCORATIFS
-        ========================================== */}
+        {/* =====================================================
+            PANNEAU GAUCHE
+        ====================================================== */}
 
         <div
-          className="
-            pointer-events-none
-            absolute
-            -right-16
-            -top-16
-            h-40
-            w-40
-            rounded-full
-            border
-            border-blue-100/80
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -right-4
-            -top-4
-            h-20
-            w-20
-            rounded-full
-            border
-            border-blue-100/70
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            -bottom-10
-            -left-10
-            h-28
-            w-28
-            rounded-full
-            bg-blue-50/70
-          "
-        />
-
-        {/* =========================================
-            HEADER
-        ========================================== */}
-
-        <CardHeader
           className="
             relative
-            z-10
-            space-y-3
-            bg-gradient-to-b
-            from-blue-50/80
-            to-transparent
-            px-8
-            pb-4
-            pt-7
-            text-center
+            hidden
+            w-1/2
+            overflow-hidden
+            lg:block
           "
         >
-
-          {/* LOGO */}
+          {/* Image */}
 
           <div
             className="
-              group
-              mx-auto
-              flex
-              h-[68px]
-              w-[68px]
-              items-center
-              justify-center
-              rounded-[20px]
+              absolute
+              inset-0
+              bg-cover
+              bg-center
+            "
+            style={{
+              backgroundImage: `url(${carte})`,
+            }}
+          />
+
+          {/* Overlay */}
+
+          <div className="absolute inset-0 bg-[#0B2A4D]/60" />
+
+          <div
+            className="
+              absolute
+              inset-0
+              bg-gradient-to-t
+              from-[#062B48]
+              via-[#0B2A4D]/35
+              to-[#0B2A4D]/10
+            "
+          />
+
+          {/* Cercles décoratifs */}
+
+          <div
+            className="
+              absolute
+              -right-20
+              -top-20
+              h-64
+              w-64
+              rounded-full
               border
-              border-blue-100
-              bg-white
-              shadow-[0_8px_25px_rgba(37,99,235,0.10)]
-              transition-all
-              duration-500
-              hover:-translate-y-1
-              hover:rotate-2
-              hover:shadow-[0_12px_30px_rgba(37,99,235,0.18)]
+              border-white/10
             "
-          >
-            <img
-              src={logo}
-              alt="AutoGuide+"
-              className="
-                h-14
-                w-14
-                object-contain
-                transition-transform
-                duration-500
-                group-hover:scale-110
-              "
-            />
-          </div>
+          />
 
-          {/* PETITS POINTS */}
-
-          <div className="flex items-center justify-center gap-1.5">
-            <span className="h-1 w-1 rounded-full bg-blue-300" />
-
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-
-            <Sparkles
-              className="
-                h-4
-                w-4
-                text-blue-500
-                animate-pulse
-              "
-            />
-
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-
-            <span className="h-1 w-1 rounded-full bg-blue-300" />
-          </div>
-
-          {/* TITRE */}
-
-          <CardTitle
+          <div
             className="
-              text-2xl
-              font-bold
-              tracking-tight
-              text-[#145DA0]
+              absolute
+              -bottom-24
+              -left-24
+              h-72
+              w-72
+              rounded-full
+              border
+              border-white/10
             "
-          >
-            AutoGuide+
-          </CardTitle>
+          />
 
-          {/* DESCRIPTION */}
+          {/* Contenu */}
 
-          <CardDescription
+          <div
             className="
-              text-sm
-              leading-5
-              text-slate-500
+              relative
+              z-10
+              flex
+              h-full
+              flex-col
+              justify-between
+              p-8
+              text-white
             "
           >
-            Votre compagnon de route à Yaoundé
-          </CardDescription>
+            {/* LOGO */}
 
-        </CardHeader>
+            <div className="flex items-center gap-3">
+              <div
+                className="
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-xl
+                  border
+                  border-white/15
+                  bg-white/10
+                  backdrop-blur-md
+                "
+              >
+                <img
+                  src={logo}
+                  alt="AutoGuide+"
+                  className="h-10 w-10 object-contain"
+                />
+              </div>
 
-        {/* =========================================
-            CONTENU DU FORMULAIRE
-        ========================================== */}
+              <span className="text-lg font-semibold tracking-tight">
+                AutoGuide+
+              </span>
+            </div>
 
-        <CardContent
+            {/* BADGE GARAGE */}
+
+            <div
+              className="
+                absolute
+                right-8
+                top-8
+                w-64
+                rounded-2xl
+                border
+                border-white/15
+                bg-white/10
+                p-4
+                shadow-[0_15px_45px_rgba(0,0,0,0.25)]
+                backdrop-blur-xl
+              "
+            >
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span
+                    className="
+                      absolute
+                      inline-flex
+                      h-full
+                      w-full
+                      animate-ping
+                      rounded-full
+                      bg-[#5EC5FF]
+                      opacity-75
+                    "
+                  />
+
+                  <span
+                    className="
+                      relative
+                      inline-flex
+                      h-2.5
+                      w-2.5
+                      rounded-full
+                      bg-[#5EC5FF]
+                    "
+                  />
+                </span>
+
+                <p className="text-sm font-medium text-white/90">
+                  Garage repéré à 3,2 km
+                </p>
+              </div>
+
+              <div className="mt-3 flex items-center gap-2.5">
+                <div className="flex flex-col items-center">
+                  <span className="h-2 w-2 rounded-full bg-white" />
+
+                  <span className="my-0.5 h-6 w-px border-l border-dashed border-white/30" />
+
+                  <span className="h-2 w-2 rounded-full border-2 border-[#5EC5FF]" />
+                </div>
+
+                <div className="flex flex-1 flex-col gap-2.5">
+                  <span className="text-[11px] text-white/60">
+                    Votre position
+                  </span>
+
+                  <span className="text-[11px] text-white/60">
+                    Garage Mécano Plus — Ekounou
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* MESSAGE */}
+
+            <div className="max-w-md">
+              <div className="mb-3 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-[#8FC1F5]" />
+
+                <p className="text-sm font-medium text-[#8FC1F5]">
+                  À Yaoundé, chaque trajet compte
+                </p>
+              </div>
+
+              <h2
+                className="
+                  text-[2.4rem]
+                  font-bold
+                  leading-[1.12]
+                  tracking-tight
+                "
+              >
+                On reste avec vous,
+                <br />
+                même en panne.
+              </h2>
+
+              <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">
+                Le meilleur itinéraire pour votre trajet,
+                et le garage le plus proche en cas de souci
+                mécanique — partout, à tout moment.
+              </p>
+            </div>
+
+            {/* STATISTIQUES */}
+
+            <div
+              className="
+                flex
+                w-fit
+                items-center
+                gap-5
+                rounded-full
+                border
+                border-white/15
+                bg-white/10
+                px-5
+                py-3
+                backdrop-blur-xl
+              "
+            >
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-semibold">
+                  120+
+                </span>
+
+                <span className="text-[11px] text-white/60">
+                  Garages
+                </span>
+              </div>
+
+              <span className="h-4 w-px bg-white/20" />
+
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-semibold">
+                  24/7
+                </span>
+
+                <span className="text-[11px] text-white/60">
+                  Assistance
+                </span>
+              </div>
+
+              <span className="h-4 w-px bg-white/20" />
+
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-semibold">
+                  12 min
+                </span>
+
+                <span className="text-[11px] text-white/60">
+                  Réponse moy.
+                </span>
+              </div>
+            </div>
+
+            {/* FOOTER */}
+
+            <p className="text-xs text-white/40">
+              © {new Date().getFullYear()} AutoGuide+ —
+              Votre compagnon de route
+            </p>
+          </div>
+        </div>
+
+        {/* =====================================================
+            PANNEAU DROIT
+        ====================================================== */}
+
+        <div
           className="
             relative
-            z-10
-            px-8
-            pb-7
-            pt-1
+            flex
+            w-full
+            items-center
+            justify-center
+            bg-white
+            px-6
+            py-10
+            lg:w-1/2
+            lg:px-12
           "
         >
+          {/* Décorations */}
 
-          <form>
+          <div
+            className="
+              pointer-events-none
+              absolute
+              -right-20
+              -top-20
+              h-48
+              w-48
+              rounded-full
+              border
+              border-[#1468A8]/10
+            "
+          />
 
-            <FieldGroup>
+          <div
+            className="
+              pointer-events-none
+              absolute
+              -bottom-16
+              -left-16
+              h-40
+              w-40
+              rounded-full
+              bg-[#1468A8]/5
+            "
+          />
 
-              {/* =====================================
-                  EMAIL / TÉLÉPHONE
-              ====================================== */}
+          <div className="relative z-10 w-full max-w-[420px]">
+            {/* =================================================
+                HEADER
+            ================================================== */}
 
-              <Field>
+            <div className="mb-8">
+              {/* Logo */}
 
-                <FieldLabel
+              <div
+                className="
+                  mb-5
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  border
+                  border-[#1468A8]/15
+                  bg-[#E6F1FB]
+                  shadow-[0_8px_20px_rgba(20,104,168,0.08)]
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                "
+              >
+                <img
+                  src={logo}
+                  alt="AutoGuide+"
+                  className="h-12 w-12 object-contain"
+                />
+              </div>
+
+              <p className="mb-2 text-sm font-semibold text-[#1468A8]">
+                Bienvenue sur AutoGuide+
+              </p>
+
+              <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+                Connectez-vous pour retrouver vos itinéraires,
+                vos garages et profiter de votre assistance routière.
+              </p>
+            </div>
+
+            {/* =================================================
+                FORMULAIRE
+            ================================================== */}
+
+            <form
+              onSubmit={handleLogin}
+              className="space-y-5"
+            >
+              {/* EMAIL */}
+
+              <div>
+                <label
                   htmlFor="email"
                   className="
+                    mb-2
+                    block
                     text-sm
                     font-semibold
                     text-slate-700
                   "
                 >
-                  Email ou Numéro de téléphone
-                </FieldLabel>
+                  Email
+                </label>
 
                 <div className="group relative">
-
                   <User
                     className="
                       absolute
@@ -289,271 +549,208 @@ export function LoginForm({
                       -translate-y-1/2
                       text-slate-400
                       transition-colors
-                      duration-200
-                      group-focus-within:text-blue-600
+                      group-focus-within:text-[#1468A8]
                     "
                   />
 
-                  <Input
+                  <input
                     id="email"
-                    type="text"
-                    placeholder="Ex : 6XXXXXXXXX"
+                    type="email"
+                    value={email}
+                    onChange={(event) =>
+                      setEmail(event.target.value)
+                    }
+                    placeholder="Ex : votre@email.com"
+                    required
+                    autoComplete="email"
                     className="
-                      h-11
+                      h-12
+                      w-full
                       rounded-xl
-                      border-blue-100
-                      bg-white/90
-                      pl-9
+                      border
+                      border-slate-200
+                      bg-white
+                      pl-10
+                      pr-4
+                      text-sm
                       text-slate-700
+                      outline-none
                       transition-all
                       duration-300
                       placeholder:text-slate-400
-                      hover:border-blue-200
-                      hover:bg-white
-                      focus:border-blue-500
-                      focus:bg-white
+                      hover:border-[#1468A8]/40
+                      focus:border-[#1468A8]
                       focus:ring-4
-                      focus:ring-blue-500/10
+                      focus:ring-[#1468A8]/10
                     "
-                    required
                   />
-
                 </div>
+              </div>
 
-              </Field>
+              {/* MOT DE PASSE */}
 
-              {/* =====================================
-                  MOT DE PASSE
-              ====================================== */}
-
-              <Field>
-
-                <FieldLabel
-                  htmlFor="password"
-                  className="
-                    text-sm
-                    font-semibold
-                    text-slate-700
-                  "
-                >
-                  Mot de passe
-                </FieldLabel>
-
-                <div className="group relative">
-
-                  <Lock
+              <div>
+                <div className="mb-2 flex items-center justify-between">
+                  <label
+                    htmlFor="password"
                     className="
-                      absolute
-                      left-3
-                      top-1/2
-                      h-4
-                      w-4
-                      -translate-y-1/2
-                      text-slate-400
-                      transition-colors
-                      duration-200
-                      group-focus-within:text-blue-600
-                    "
-                  />
-
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    className="
-                      h-11
-                      rounded-xl
-                      border-blue-100
-                      bg-white/90
-                      pl-9
-                      pr-9
+                      text-sm
+                      font-semibold
                       text-slate-700
-                      transition-all
-                      duration-300
-                      hover:border-blue-200
-                      hover:bg-white
-                      focus:border-blue-500
-                      focus:bg-white
-                      focus:ring-4
-                      focus:ring-blue-500/10
                     "
-                    required
-                  />
+                  >
+                    Mot de passe
+                  </label>
 
                   <button
                     type="button"
-                    onClick={() =>
-                      setShowPassword((s) => !s)
-                    }
                     className="
-                      absolute
-                      right-3
-                      top-1/2
-                      -translate-y-1/2
-                      text-slate-400
-                      transition-all
-                      duration-200
-                      hover:scale-110
-                      hover:text-blue-600
-                    "
-                    aria-label={
-                      showPassword
-                        ? "Masquer le mot de passe"
-                        : "Afficher le mot de passe"
-                    }
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-
-                </div>
-
-              </Field>
-
-              {/* =====================================
-                  OPTIONS
-              ====================================== */}
-
-              <Field>
-
-                <div
-                  className="
-                    flex
-                    items-center
-                    justify-between
-                    gap-3
-                  "
-                >
-
-                  <div className="flex items-center gap-2">
-
-                    <Checkbox
-                      id="remember"
-                      className="
-                        border-blue-200
-                        data-[state=checked]:border-blue-600
-                        data-[state=checked]:bg-blue-600
-                      "
-                    />
-
-                    <label
-                      htmlFor="remember"
-                      className="
-                        cursor-pointer
-                        text-sm
-                        text-slate-500
-                      "
-                    >
-                      Se souvenir de moi
-                    </label>
-
-                  </div>
-
-                  <a
-                    href="#"
-                    className="
-                      text-sm
+                      text-xs
                       font-medium
-                      text-blue-600
+                      text-[#1468A8]
                       transition-colors
-                      duration-200
-                      hover:text-blue-800
+                      hover:text-[#0F568D]
                       hover:underline
                     "
                   >
                     Mot de passe oublié ?
-                  </a>
-
+                  </button>
                 </div>
 
-              </Field>
+                <PasswordInput
+                  password={password}
+                  setPassword={setPassword}
+                />
+              </div>
 
-              {/* =====================================
-                  BOUTON
-              ====================================== */}
+              {/* SE SOUVENIR */}
 
-              <Field>
-
-                <Button
-                  type="submit"
+              <div className="flex items-center gap-2">
+                <input
+                  id="remember"
+                  type="checkbox"
                   className="
-                    group
-                    h-11
-                    w-full
-                    rounded-xl
-                    bg-gradient-to-r
-                    from-blue-600
-                    to-blue-700
-                    font-semibold
-                    text-white
-                    shadow-[0_8px_20px_rgba(37,99,235,0.20)]
-                    transition-all
-                    duration-300
-                    hover:-translate-y-0.5
-                    hover:from-blue-700
-                    hover:to-blue-800
-                    hover:shadow-[0_12px_25px_rgba(37,99,235,0.28)]
-                    active:translate-y-0
+                    h-4
+                    w-4
+                    cursor-pointer
+                    accent-[#1468A8]
+                  "
+                />
+
+                <label
+                  htmlFor="remember"
+                  className="
+                    cursor-pointer
+                    text-sm
+                    text-slate-500
                   "
                 >
-                  Se connecter
+                  Se souvenir de moi
+                </label>
+              </div>
 
-                  <span
-                    className="
-                      ml-1
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  >
-                    →
-                  </span>
-                </Button>
+              {/* BOUTON */}
 
-              </Field>
-
-              {/* =====================================
-                  SÉPARATEUR
-              ====================================== */}
-
-              <FieldSeparator
+              <button
+                type="submit"
+                disabled={isLoading}
                 className="
-                  text-xs
-                  text-slate-400
-                  *:data-[slot=field-separator-content]:bg-white
+                  group
+                  flex
+                  h-12
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2
+                  rounded-xl
+                  bg-[#1468A8]
+                  text-sm
+                  font-semibold
+                  text-white
+                  shadow-[0_8px_20px_rgba(20,104,168,0.20)]
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-[#0F568D]
+                  hover:shadow-[0_12px_25px_rgba(20,104,168,0.25)]
+                  active:translate-y-0
+                  disabled:cursor-not-allowed
+                  disabled:opacity-70
+                  disabled:hover:translate-y-0
                 "
               >
-                Ou continuer avec
-              </FieldSeparator>
+                {isLoading ? (
+                  <>
+                    <span
+                      className="
+                        h-4
+                        w-4
+                        animate-spin
+                        rounded-full
+                        border-2
+                        border-white/30
+                        border-t-white
+                      "
+                    />
 
-              {/* =====================================
-                  CONNEXION SOCIALE
-              ====================================== */}
+                    Connexion...
+                  </>
+                ) : (
+                  <>
+                    Se connecter
 
-              <Field className="grid grid-cols-2 gap-3">
+                    <ArrowRight
+                      className="
+                        h-4
+                        w-4
+                        transition-transform
+                        duration-300
+                        group-hover:translate-x-1
+                      "
+                    />
+                  </>
+                )}
+              </button>
 
+              {/* SÉPARATEUR */}
+
+              <div className="flex items-center gap-3 py-1">
+                <div className="h-px flex-1 bg-slate-200" />
+
+                <span className="text-xs text-slate-400">
+                  Ou continuer avec
+                </span>
+
+                <div className="h-px flex-1 bg-slate-200" />
+              </div>
+
+              {/* CONNEXION SOCIALE */}
+
+              <div className="grid grid-cols-2 gap-3">
                 {/* GOOGLE */}
 
-                <Button
-                  variant="outline"
+                <button
                   type="button"
                   className="
-                    h-10
+                    flex
+                    h-11
+                    items-center
+                    justify-center
+                    gap-2
                     rounded-xl
-                    border-blue-100
+                    border
+                    border-slate-200
                     bg-white
+                    text-sm
+                    font-medium
                     text-slate-700
                     transition-all
                     duration-300
                     hover:-translate-y-0.5
-                    hover:border-blue-200
-                    hover:bg-blue-50/50
-                    hover:shadow-sm
+                    hover:border-[#1468A8]/30
+                    hover:bg-[#E6F1FB]
                   "
                 >
-
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -581,29 +778,32 @@ export function LoginForm({
                   </svg>
 
                   Google
-
-                </Button>
+                </button>
 
                 {/* APPLE */}
 
-                <Button
-                  variant="outline"
+                <button
                   type="button"
                   className="
-                    h-10
+                    flex
+                    h-11
+                    items-center
+                    justify-center
+                    gap-2
                     rounded-xl
-                    border-blue-100
+                    border
+                    border-slate-200
                     bg-white
+                    text-sm
+                    font-medium
                     text-slate-700
                     transition-all
                     duration-300
                     hover:-translate-y-0.5
-                    hover:border-blue-200
-                    hover:bg-blue-50/50
-                    hover:shadow-sm
+                    hover:border-[#1468A8]/30
+                    hover:bg-[#E6F1FB]
                   "
                 >
-
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -616,74 +816,139 @@ export function LoginForm({
                   </svg>
 
                   Apple
-
-                </Button>
-
-              </Field>
-
-              {/* =====================================
-                  CRÉER UN COMPTE
-              ====================================== */}
-
-            <FieldDescription
-              className="
-                pt-1
-                text-center
-                text-sm
-                text-slate-500
-              "
-            >
-              Nouveau sur AutoGuide+ ?{" "}
-
-              <Link
-                to="/register"
-                className="
-                  ml-1
-                  font-semibold
-                  text-blue-600
-                  transition-colors
-                  duration-200
-                  hover:text-blue-800
-                  hover:underline
-                "
-              >
-                Créer un compte
-              </Link>
-            </FieldDescription>
-              {/* =====================================
-                  NOTE DE SÉCURITÉ
-              ====================================== */}
-
-              <div
-                className="
-                  mt-1
-                  flex
-                  items-center
-                  justify-center
-                  gap-1.5
-                  text-[11px]
-                  text-slate-400
-                "
-              >
-                <ShieldCheck
-                  className="
-                    h-3.5
-                    w-3.5
-                    text-blue-400
-                  "
-                />
-
-                Connexion sécurisée AutoGuide+
+                </button>
               </div>
 
-            </FieldGroup>
+              {/* CRÉATION DE COMPTE */}
 
-          </form>
+              <div className="pt-2 text-center">
+                <p className="text-sm text-slate-500">
+                  Nouveau sur AutoGuide+ ?
 
-        </CardContent>
+                  <Link
+                    to="/register"
+                    className="
+                      ml-1
+                      font-semibold
+                      text-[#1468A8]
+                      transition-colors
+                      hover:text-[#0F568D]
+                      hover:underline
+                    "
+                  >
+                    Créer un compte
+                  </Link>
+                </p>
+              </div>
 
-      </Card>
+              {/* SÉCURITÉ */}
 
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <ShieldCheck
+                  className="h-4 w-4 text-[#1468A8]/60"
+                />
+
+                <span className="text-xs text-slate-400">
+                  Connexion sécurisée AutoGuide+
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================
+// CHAMP MOT DE PASSE
+// ============================================================
+
+function PasswordInput({
+  password,
+  setPassword,
+}: {
+  password: string
+  setPassword: Dispatch<SetStateAction<string>>
+}) {
+  const [showPassword, setShowPassword] = useState(false)
+
+  return (
+    <div className="group relative">
+      <Lock
+        className="
+          absolute
+          left-3
+          top-1/2
+          h-4
+          w-4
+          -translate-y-1/2
+          text-slate-400
+          transition-colors
+          group-focus-within:text-[#1468A8]
+        "
+      />
+
+      <input
+        id="password"
+        type={showPassword ? "text" : "password"}
+        value={password}
+        onChange={(event) =>
+          setPassword(event.target.value)
+        }
+        placeholder="Votre mot de passe"
+        required
+        autoComplete="current-password"
+        className="
+          h-12
+          w-full
+          rounded-xl
+          border
+          border-slate-200
+          bg-white
+          pl-10
+          pr-11
+          text-sm
+          text-slate-700
+          outline-none
+          transition-all
+          duration-300
+          placeholder:text-slate-400
+          hover:border-[#1468A8]/40
+          focus:border-[#1468A8]
+          focus:ring-4
+          focus:ring-[#1468A8]/10
+        "
+      />
+
+      <button
+        type="button"
+        onClick={() =>
+          setShowPassword((value) => !value)
+        }
+        className="
+          absolute
+          right-3
+          top-1/2
+          -translate-y-1/2
+          text-slate-400
+          transition-all
+          duration-200
+          hover:scale-110
+          hover:text-[#1468A8]
+        "
+        aria-label={
+          showPassword
+            ? "Masquer le mot de passe"
+            : "Afficher le mot de passe"
+        }
+      >
+        {showPassword ? (
+          <EyeOff className="h-4 w-4" />
+        ) : (
+          <Eye className="h-4 w-4" />
+        )}
+      </button>
     </div>
   )
 }

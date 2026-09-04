@@ -6,11 +6,11 @@ import {
 
 export default function TrustSection() {
   return (
-    <section className="px-5 py-20 lg:px-8">
+    <section className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-16 sm:py-20 lg:px-8">
 
       <div className="mx-auto max-w-7xl">
 
-        <div className="overflow-hidden rounded-[30px] bg-[#4D8F08] p-8 text-white sm:p-12 lg:p-16">
+        <div className="overflow-hidden rounded-[24px] bg-[#4D8F08] p-6 text-white shadow-[0_18px_50px_rgba(77,143,8,0.16)] sm:rounded-[30px] sm:p-12 lg:p-16">
 
           <div className="grid items-center gap-10 lg:grid-cols-2">
 

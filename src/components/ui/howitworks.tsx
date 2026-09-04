@@ -33,14 +33,14 @@ export default function HowItWorks() {
   return (
     <section
       id="fonctionnement"
-      className="bg-white px-5 py-20 lg:px-8"
+      className="border-t border-slate-200/80 bg-white px-5 py-16 sm:py-20 lg:px-8"
     >
 
       <div className="mx-auto max-w-7xl">
 
         <div className="text-center">
 
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">
             Simple et rapide
           </p>
 
@@ -56,7 +56,7 @@ export default function HowItWorks() {
         </div>
 
 
-        <div className="relative mt-14 grid gap-8 md:grid-cols-3">
+        <div className="relative mt-10 grid gap-5 sm:mt-14 md:grid-cols-3 md:gap-8">
 
           {/* Ligne */}
 
@@ -69,10 +69,10 @@ export default function HowItWorks() {
             return (
               <div
                 key={step.number}
-                className="relative z-10 text-center"
+                className="relative z-10 rounded-2xl border border-slate-100 bg-[#fbfdff] p-5 text-center shadow-sm md:border-0 md:bg-transparent md:p-0 md:shadow-none"
               >
 
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-blue-100 bg-white shadow-lg shadow-blue-900/5">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-100 bg-white shadow-lg shadow-blue-900/5 sm:h-20 sm:w-20">
 
                   <Icon className="h-7 w-7 text-blue-600" />
 

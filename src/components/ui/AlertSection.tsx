@@ -7,9 +7,9 @@ import {
 
 export default function AlertSection() {
   return (
-    <section className="bg-white px-5 py-20 lg:px-8">
+    <section className="border-t border-slate-200/80 bg-white px-5 py-16 sm:py-20 lg:px-8">
 
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
         <div>
 
@@ -111,7 +111,7 @@ export default function AlertSection() {
 
         {/* NOTIFICATION */}
 
-        <div className="rounded-[30px] bg-[#F8FAFC] p-8">
+        <div className="rounded-[24px] border border-slate-200/80 bg-[#F8FAFC] p-4 shadow-sm sm:rounded-[30px] sm:p-8">
 
           <div className="mx-auto max-w-md rounded-3xl border border-slate-100 bg-white p-6 shadow-xl">
 

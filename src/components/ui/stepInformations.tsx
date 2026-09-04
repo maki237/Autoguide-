@@ -1,4 +1,6 @@
-import { User, Mail, Phone } from "lucide-react"
+
+import { User, Mail, Phone, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface StepInformationsProps {
   fullName: string
@@ -21,13 +23,12 @@ export function StepInformations({
   onNext,
   onPrevious,
 }: StepInformationsProps) {
-
   return (
     <div className="space-y-5">
 
       {/* NOM */}
       <div>
-        <label className="mb-2 block text-sm font-semibold text-[#263B4D]">
+        <label htmlFor="full-name" className="mb-2 block text-sm font-semibold text-[#263B4D]">
           Nom complet
         </label>
 
@@ -35,6 +36,8 @@ export function StepInformations({
           <User className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
 
           <input
+            id="full-name"
+            name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Jean Dupont"
@@ -46,7 +49,7 @@ export function StepInformations({
 
       {/* EMAIL */}
       <div>
-        <label className="mb-2 block text-sm font-semibold text-[#263B4D]">
+        <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#263B4D]">
           Adresse email
         </label>
 
@@ -54,6 +57,8 @@ export function StepInformations({
           <Mail className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
 
           <input
+            id="email"
+            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -66,7 +71,7 @@ export function StepInformations({
 
       {/* TELEPHONE */}
       <div>
-        <label className="mb-2 block text-sm font-semibold text-[#263B4D]">
+        <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-[#263B4D]">
           Numéro de téléphone
         </label>
 
@@ -79,6 +84,9 @@ export function StepInformations({
             <Phone className="absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
 
             <input
+              id="phone"
+              name="phone"
+              type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="6XX XX XX XX"
@@ -91,23 +99,32 @@ export function StepInformations({
 
       {/* BOUTONS */}
       <div className="flex gap-3">
-        <button
+
+        {/* RETOUR */}
+        <Button
           type="button"
+          variant="outline"
           onClick={onPrevious}
-          className="h-12 flex-1 rounded-xl border border-gray-200 bg-white text-sm font-semibold text-gray-600 hover:bg-gray-50"
+          className="h-12 flex-1 rounded-xl border-gray-200 bg-white text-sm font-semibold text-gray-600 hover:bg-gray-50"
         >
           Retour
-        </button>
+        </Button>
 
-        <button
+        {/* CONTINUER */}
+        <Button
           type="button"
+          variant="continue"
+          size="continue"
           onClick={onNext}
-          className="h-12 flex-1 rounded-xl bg-[#1B5FA8] text-sm font-semibold text-white hover:bg-[#154a87]"
         >
           Continuer
-        </button>
-      </div>
 
+          <ArrowRight
+            className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-1"
+          />
+        </Button>
+
+      </div>
     </div>
   )
 }

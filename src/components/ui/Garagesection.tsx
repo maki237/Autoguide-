@@ -9,18 +9,18 @@ export default function GarageSection() {
   return (
     <section
       id="garages"
-      className="bg-[#F8FAFC] px-5 py-20 lg:px-8"
+      className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-16 sm:py-20 lg:px-8"
     >
 
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
         {/* VISUEL */}
 
         <div className="relative">
 
-          <div className="overflow-hidden rounded-[30px] border border-blue-100 bg-blue-50 p-4">
+          <div className="overflow-hidden rounded-[24px] border border-blue-100 bg-blue-50 p-2.5 shadow-[0_18px_50px_rgba(20,104,168,0.10)] sm:rounded-[30px] sm:p-4">
 
-            <div className="relative flex h-[390px] items-center justify-center overflow-hidden rounded-[24px] bg-[#E6F1FB]">
+            <div className="relative flex h-[320px] items-center justify-center overflow-hidden rounded-[19px] bg-[#E6F1FB] sm:h-[390px] sm:rounded-[24px]">
 
               {/* Cercle carte */}
 

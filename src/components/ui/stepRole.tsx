@@ -1,5 +1,7 @@
+
 import { cn } from "@/lib/utils"
 import { User, Wrench, CheckCircle2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 type Role = "client" | "garage"
 
@@ -17,6 +19,7 @@ export function StepRole({
   return (
     <div className="space-y-5">
 
+      {/* CHOIX DU RÔLE */}
       <div>
         <label className="mb-2.5 block text-sm font-semibold text-[#263B4D]">
           Vous êtes...
@@ -27,6 +30,7 @@ export function StepRole({
           {/* AUTOMOBILISTE */}
           <button
             type="button"
+            aria-pressed={role === "client"}
             onClick={() => setRole("client")}
             className={cn(
               "group relative flex min-h-[105px] flex-col items-center justify-center gap-2 rounded-xl border bg-white p-4 transition-all",
@@ -60,6 +64,7 @@ export function StepRole({
           {/* GARAGISTE */}
           <button
             type="button"
+            aria-pressed={role === "garage"}
             onClick={() => setRole("garage")}
             className={cn(
               "group relative flex min-h-[105px] flex-col items-center justify-center gap-2 rounded-xl border bg-white p-4 transition-all",
@@ -93,13 +98,15 @@ export function StepRole({
         </div>
       </div>
 
-      <button
+      {/* BOUTON CONTINUER */}
+      <Button
         type="button"
+        variant="continue"
         onClick={onNext}
-        className="h-12 w-full rounded-xl bg-[#1B5FA8] text-sm font-semibold text-white hover:bg-[#154a87]"
+        className="h-12 w-full rounded-xl"
       >
         Continuer
-      </button>
+      </Button>
 
     </div>
   )

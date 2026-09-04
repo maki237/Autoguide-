@@ -5,21 +5,21 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-[1100] border-b border-slate-100 bg-white/90 backdrop-blur-md">
 
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-5 lg:px-8">
 
         {/* LOGO */}
 
         <Link
           to="/"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2.5"
         >
           <img
             src={logo}
             alt="AutoGuide+"
-            className="h-9 w-9 object-contain"
+            className="h-12 w-12 object-contain sm:h-14 sm:w-14"
           />
 
-          <span className="text-lg font-bold text-[#145DA0]">
+          <span className="text-lg font-bold tracking-tight text-[#145DA0] sm:text-xl">
             AutoGuide+
           </span>
         </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
             className="
               rounded-xl
               bg-[#1468A8]
-              px-5
+              px-4
               py-2.5
               text-sm
               font-semibold
@@ -88,7 +88,8 @@ export default function Navbar() {
               hover:shadow-md
             "
           >
-            Commencer
+            <span className="sm:hidden">Démarrer</span>
+            <span className="hidden sm:inline">Commencer</span>
           </Link>
 
         </div>

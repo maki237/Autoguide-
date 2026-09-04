@@ -13,7 +13,7 @@ export default function FeaturesSection() {
   return (
     <section
       id="solutions"
-      className="bg-[#F8FAFC] px-5 py-20 lg:px-8"
+      className="border-t border-slate-200/80 bg-[#F8FAFC] px-5 py-16 sm:py-20 lg:px-8"
     >
 
       <div className="mx-auto max-w-7xl">
@@ -22,12 +22,12 @@ export default function FeaturesSection() {
 
         <div className="mx-auto max-w-2xl text-center">
 
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">
             Nos solutions
           </p>
 
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Des outils utiles pour votre conduite
+          <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em] text-slate-900 sm:text-4xl">
+            Tout ce qu'il faut pour garder le cap
           </h2>
 
           <p className="mt-4 text-slate-500">
@@ -40,11 +40,11 @@ export default function FeaturesSection() {
 
         {/* CARTES */}
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-12 md:grid-cols-2 lg:grid-cols-3">
 
           <FeatureCard
             icon={Route}
-            title="Navigation"
+            title="Navigation intelligente"
             description="Calculez l'itinéraire optimal en tenant compte de la distance, du temps de trajet et des conditions de circulation."
             color="blue"
             large
@@ -66,7 +66,7 @@ export default function FeaturesSection() {
 
           <FeatureCard
             icon={BellRing}
-            title="Alertes de trajet"
+            title="Alertes connectées"
             description="Recevez des notifications utiles concernant votre trajet, les risques routiers et les informations importantes."
             color="amber"
           />
