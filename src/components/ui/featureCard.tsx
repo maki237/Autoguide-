@@ -35,7 +35,7 @@ export default function FeatureCard({
         transition-all
         duration-300
         hover:-translate-y-1
-        hover:shadow-xl
+        hover:shadow-lg
         ${large ? "lg:p-8" : ""}
       `}
     >

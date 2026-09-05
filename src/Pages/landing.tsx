@@ -7,29 +7,9 @@ import AlertSection from "@/components/ui/AlertSection"
 import TrustSection from "@/components/ui/trustsection"
 import CTASection from "@/components/ui/CTASection"
 import Footer from "@/components/ui/Footer"
-import { useEffect } from "react"
+import { motion } from "motion/react"
 
 export default function LandingPage() {
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"))
-    elements.forEach((element) => element.classList.add("reveal-on-scroll"))
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.12 },
-    )
-
-    elements.forEach((element) => observer.observe(element))
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
 
@@ -37,17 +17,17 @@ export default function LandingPage() {
 
       <Hero />
 
-      <div data-reveal><FeaturesSection /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><FeaturesSection /></motion.div>
 
-      <div data-reveal><HowItWorks /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><HowItWorks /></motion.div>
 
-      <div data-reveal><GarageSection /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><GarageSection /></motion.div>
 
-      <div data-reveal><AlertSection /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><AlertSection /></motion.div>
 
-      <div data-reveal><TrustSection /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><TrustSection /></motion.div>
 
-      <div data-reveal><CTASection /></div>
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><CTASection /></motion.div>
 
       <Footer />
 
