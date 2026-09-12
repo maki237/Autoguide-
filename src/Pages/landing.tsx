@@ -11,23 +11,25 @@ import { motion } from "motion/react"
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
+    <main className="landing-page min-h-screen bg-[#F8FAFC] text-slate-900">
 
       <Navbar />
 
-      <Hero />
+      <div className="landing-panel landing-hero-panel">
+        <Hero />
+      </div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><FeaturesSection /></motion.div>
+      <motion.div id="solutions" className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><FeaturesSection /></motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><HowItWorks /></motion.div>
+      <motion.div id="fonctionnement" className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><HowItWorks /></motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><GarageSection /></motion.div>
+      <motion.div id="garages" className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><GarageSection /></motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><AlertSection /></motion.div>
+      <motion.div id="aide" className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><AlertSection /></motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><TrustSection /></motion.div>
+      <motion.div className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><TrustSection /></motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><CTASection /></motion.div>
+      <motion.div className="landing-panel landing-content-panel" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.5 }}><CTASection /></motion.div>
 
       <Footer />
 

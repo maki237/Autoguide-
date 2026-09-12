@@ -1,10 +1,11 @@
-import { MapPin, Search, X } from "lucide-react"
+import { MapPin, Search, X, Navigation } from "lucide-react"
+import { useState } from "react"
 
 type DashboardSearchProps = {
   search: string
   destination: string
   onSearchChange: (value: string) => void
-  onSearch: () => void
+  onSearch: (startPoint?: string, endPoint?: string) => void
   onClear: () => void
 }
 
@@ -15,80 +16,58 @@ export function DashboardSearch({
   onSearch,
   onClear,
 }: DashboardSearchProps) {
+  const [startPoint, setStartPoint] = useState("")
+
+  const handleSearchSubmit = () => {
+    onSearch(startPoint, search)
+  }
+
   return (
     <>
       {/* ================================
-          BARRE DE RECHERCHE
+          FORMULAIRE POINT DE DÉPART & D'ARRIVÉE
       ================================= */}
 
-      <div
-        className="
-          relative
-          mb-4
-          rounded-2xl
-          border
-          border-slate-200
-          bg-white
-          shadow-sm
-        "
-      >
-        <Search
-          className="
-            absolute
-            left-5
-            top-1/2
-            -translate-y-1/2
-            text-slate-400
-          "
-          size={21}
-        />
+      <div className="relative mb-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          
+          {/* Champ Point de départ */}
+          <div className="relative flex-1">
+            <Navigation className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500 h-4 w-4" />
+            <input
+              type="text"
+              value={startPoint}
+              onChange={(e) => setStartPoint(e.target.value)}
+              placeholder="Point de départ (Ex : Ma position ou Yaoundé...)"
+              className="w-full rounded-xl bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 border border-slate-200"
+            />
+          </div>
 
-        <input
-          type="text"
-          value={search}
-          onChange={(e) =>
-            onSearchChange(e.target.value)
-          }
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              onSearch()
-            }
-          }}
-          placeholder="Ex : Bastos, Mvan, Bonamoussadi..."
-          className="
-            w-full
-            rounded-2xl
-            bg-transparent
-            py-4
-            pl-14
-            pr-36
-            text-slate-800
-            outline-none
-            placeholder:text-slate-400
-            focus:ring-2
-            focus:ring-[#1468A8]/10
-          "
-        />
+          {/* Champ Point d'arrivée */}
+          <div className="relative flex-1">
+            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-rose-500 h-4 w-4" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => onSearchChange(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSearchSubmit()
+              }}
+              placeholder="Point d'arrivée (Ex : Bastos, Mvan...)"
+              className="w-full rounded-xl bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500/20 border border-slate-200"
+            />
+          </div>
 
-        <button
-          type="button"
-          onClick={onSearch}
-          className="
-            absolute
-            bottom-2
-            right-2
-            top-2
-            rounded-xl
-            bg-[#1468A8]
-            px-3 text-sm sm:px-5
-            font-semibold
-            text-white
-            transition
-            hover:bg-[#0F568D]
-          "
-        >
-          Rechercher
-        </button>
+          {/* Bouton Rechercher Itinéraire */}
+          <button
+            type="button"
+            onClick={handleSearchSubmit}
+            className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:from-indigo-500 hover:to-blue-500 transition-all sm:w-auto"
+          >
+            <Search className="h-4 w-4" />
+            Rechercher itinéraire
+          </button>
+        </div>
       </div>
 
       {/* ================================

@@ -4,12 +4,14 @@ import {
   History,
   Settings,
   LogOut,
-  AlertTriangle,
+  
   UserRound,
   MapPin,
   Phone,
   Building2,
   Bell,
+  Pencil,
+  MessageSquare,
 } from "lucide-react"
 
 interface GaragisteSidebarProps {
@@ -43,6 +45,11 @@ export function GaragisteSidebar({
       icon: Building2,
     },
     {
+      id: "chat",
+      label: "Chat en direct 💬",
+      icon: MessageSquare,
+    },
+    {
       id: "parametres",
       label: "Paramètres",
       icon: Settings,
@@ -64,7 +71,7 @@ export function GaragisteSidebar({
         overflow-y-auto
         border-r
         border-slate-200/80
-        bg-[#071B33]
+        bg-white
         px-4
         py-6
       "
@@ -84,26 +91,43 @@ export function GaragisteSidebar({
           {/* Nom */}
 
           <div>
-            <div className="text-xl font-bold tracking-tight text-white">
+            <div className="text-xl font-bold tracking-tight text-slate-900">
               AutoGuide<span className="text-[#45B7FF]">+</span>
             </div>
 
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-500">
               Espace partenaire
             </p>
           </div>
         </div>
 
-        <p className="mt-1 ml-12 text-[11px] text-slate-400">
+        <p className="mt-1 ml-12 text-[11px] text-slate-500">
           Garagiste
         </p>
       </div>
 
       {/* =====================================================
-          PROFIL RAPIDE
+          PROFIL RAPIDE — cliquable, redirige vers l'édition
       ===================================================== */}
 
-      <div className="rounded-2xl border border-white/10 bg-white/10 p-3">
+      <button
+        type="button"
+        onClick={() => onNavigate?.("profile")}
+        aria-label="Modifier le profil du garage"
+        className="
+          group
+          rounded-2xl
+          border
+          border-slate-200
+          bg-slate-50
+          p-3
+          text-left
+          transition-all
+          duration-200
+          hover:border-[#1677C8]/40
+          hover:bg-blue-50/60
+        "
+      >
         <div className="flex items-center gap-3">
           {/* Avatar */}
 
@@ -113,33 +137,47 @@ export function GaragisteSidebar({
 
           {/* Informations */}
 
-          <div className="min-w-0">
-            <p className="truncate text-sm font-bold text-white">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-bold text-slate-900">
               Garage Excellence
             </p>
 
             <div className="mt-0.5 flex items-center gap-1">
               <span className="h-2 w-2 rounded-full bg-green-500" />
 
-              <span className="text-[11px] text-emerald-300">
+              <span className="text-[11px] text-emerald-600">
                 Garage vérifié
               </span>
             </div>
           </div>
+
+          {/* Indicateur d'édition */}
+
+          <Pencil
+            className="
+              h-3.5
+              w-3.5
+              shrink-0
+              text-slate-400
+              transition-colors
+              duration-200
+              group-hover:text-[#1677C8]
+            "
+          />
         </div>
 
         {/* Localisation */}
 
-        <div className="mt-3 flex items-center gap-1.5 text-[11px] text-slate-300">
+        <div className="mt-3 flex items-center gap-1.5 text-[11px] text-slate-500">
           <MapPin className="h-3.5 w-3.5 shrink-0" />
 
           <span>Bastos, Yaoundé</span>
         </div>
-      </div>
+      </button>
 
       {/* Séparateur */}
 
-      <div className="my-5 border-t border-white/10" />
+      <div className="my-5 border-t border-slate-200" />
 
       {/* =====================================================
           MENU PRINCIPAL
@@ -149,7 +187,7 @@ export function GaragisteSidebar({
         className="space-y-1.5"
         aria-label="Navigation garagiste"
       >
-        <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white/35">
+        <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
           Activité
         </p>
 
@@ -180,8 +218,8 @@ export function GaragisteSidebar({
 
                 ${
                   active
-                    ? "bg-[#1677C8] text-white shadow-md shadow-blue-950/30"
-                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                    ? "bg-[#1677C8] text-white shadow-md shadow-blue-200/40"
+                    : "text-slate-600 hover:bg-blue-50 hover:text-[#1468A8]"
                 }
               `}
             >
@@ -211,8 +249,8 @@ export function GaragisteSidebar({
           onClick={() => onNavigate?.("notifications")}
           className={`group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
             activePage === "notifications"
-              ? "bg-[#1677C8] text-white shadow-md shadow-blue-950/30"
-              : "text-slate-300 hover:bg-white/10 hover:text-white"
+              ? "bg-[#1677C8] text-white shadow-md shadow-blue-200/40"
+              : "text-slate-600 hover:bg-blue-50 hover:text-[#1468A8]"
           }`}
         >
           <Bell className="h-[18px] w-[18px]" />
@@ -222,7 +260,7 @@ export function GaragisteSidebar({
           </span>
         </button>
 
-        <p className="px-4 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/35">
+        <p className="px-4 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
           Mon garage
         </p>
 
@@ -231,8 +269,8 @@ export function GaragisteSidebar({
           onClick={() => onNavigate?.("services")}
           className={`group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
             activePage === "services"
-              ? "bg-[#1677C8] text-white shadow-md shadow-blue-950/30"
-              : "text-slate-300 hover:bg-white/10 hover:text-white"
+              ? "bg-[#1677C8] text-white shadow-md shadow-blue-200/40"
+              : "text-slate-600 hover:bg-blue-50 hover:text-[#1468A8]"
           }`}
         >
           <Wrench className="h-[18px] w-[18px]" />
@@ -244,8 +282,8 @@ export function GaragisteSidebar({
           onClick={() => onNavigate?.("zone")}
           className={`group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition-all ${
             activePage === "zone"
-              ? "bg-[#1677C8] text-white shadow-md shadow-blue-950/30"
-              : "text-slate-300 hover:bg-white/10 hover:text-white"
+              ? "bg-[#1677C8] text-white shadow-md shadow-blue-200/40"
+              : "text-slate-600 hover:bg-blue-50 hover:text-[#1468A8]"
           }`}
         >
           <MapPin className="h-[18px] w-[18px]" />
@@ -263,18 +301,18 @@ export function GaragisteSidebar({
           CONTACT SUPPORT
       ===================================================== */}
 
-      <div className="mb-4 rounded-xl border border-white/10 bg-white/5 p-3">
+      <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3">
         <div className="flex items-start gap-2">
-          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[#7DD3FC]">
+          <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#1468A8]">
             <Phone className="h-3.5 w-3.5" />
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-white">
+            <p className="text-xs font-semibold text-slate-900">
               Besoin d'aide ?
             </p>
 
-            <p className="mt-1 text-[11px] leading-4 text-slate-300">
+            <p className="mt-1 text-[11px] leading-4 text-slate-500">
               Notre équipe AutoGuide+ est disponible pour vous
               accompagner.
             </p>
@@ -293,9 +331,9 @@ export function GaragisteSidebar({
             gap-1.5
             text-xs
             font-semibold
-            text-[#7DD3FC]
+            text-[#1468A8]
             transition
-            hover:text-white
+            hover:text-[#0F568D]
             hover:underline
           "
         >
@@ -305,50 +343,6 @@ export function GaragisteSidebar({
         </button>
       </div>
 
-      {/* =====================================================
-          BOUTON URGENCE
-      ===================================================== */}
-
-      <button
-        type="button"
-        onClick={() =>
-          onNavigate?.("emergency")
-        }
-        className="
-          group
-          mb-3
-          flex
-          w-full
-          items-center
-          justify-center
-          gap-2
-          rounded-xl
-          bg-[#D92D20]
-          px-4
-          py-3
-          text-sm
-          font-semibold
-          text-white
-          transition-all
-          duration-300
-          hover:-translate-y-0.5
-          hover:bg-red-700
-          hover:shadow-lg
-          hover:shadow-red-200
-        "
-      >
-        <AlertTriangle
-          className="
-            h-4
-            w-4
-            transition-transform
-            duration-300
-            group-hover:rotate-12
-          "
-        />
-
-        Je suis en panne
-      </button>
 
       {/* =====================================================
           DÉCONNEXION
@@ -383,3 +377,4 @@ export function GaragisteSidebar({
     </aside>
   )
 }
+ 

@@ -48,8 +48,12 @@ function CarModel() {
 
 export default function Car3D() {
   return (
-    <div className="pointer-events-none h-36 w-48" aria-hidden="true">
-      <Canvas camera={{ position: [3.4, 2.2, 4.2], fov: 36 }} dpr={[1, 1.5]}>
+    <div className="pointer-events-none h-32 w-44 sm:h-36 sm:w-48" aria-hidden="true">
+      <Canvas
+        camera={{ position: [3.4, 2.2, 4.2], fov: 36 }}
+        dpr={[1, 1.5]}
+        gl={{ alpha: true, antialias: true }}
+      >
         <ambientLight intensity={1.4} />
         <directionalLight position={[3, 5, 4]} intensity={2} />
         <Float speed={1.2} rotationIntensity={0.04} floatIntensity={0.18}>

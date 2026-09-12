@@ -19,6 +19,8 @@ import { StatCard } from "@/components/ui/stat-card"
 import { DemandeList } from "@/components/ui/demande-list"
 import { Notification } from "@/components/ui/notification"
 import { GarageProfileSection } from "@/components/ui/garage-profile-section"
+import { GaragisteModulePage } from "@/components/ui/garagiste-module-page"
+import { LiveChatWidget } from "@/components/ui/LiveChatWidget"
 
 export default function GaragisteDashboard() {
   /* =====================================================
@@ -65,27 +67,13 @@ export default function GaragisteDashboard() {
   const handleNavigation = (page: string) => {
     setActivePage(page)
 
-    const messages: Record<string, string> = {
-      missions: "La section « Mes interventions » est prête à être consultée.",
-      historique: "Votre historique d'interventions est à jour.",
-      notifications: "Vous avez 3 notifications et alertes non lues.",
-      parametres: "Les paramètres du garage seront bientôt disponibles.",
-      support: "Notre équipe support a été contactée. Réponse sous peu.",
-      emergency: "Le mode urgence AutoGuide+ est activé.",
-    }
-
     if (page === "logout") {
       navigate("/login")
-      return
-    }
-
-    if (messages[page]) {
-      showNotification(messages[page])
     }
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F5F8FC] text-slate-900">
+    <div className="flex min-h-screen bg-[#F7FBFF] text-slate-900">
 
       {/* =====================================================
           SIDEBAR
@@ -111,9 +99,7 @@ export default function GaragisteDashboard() {
           onToggle={handleStatus}
           activePage={activePage}
           onNavigate={handleNavigation}
-          onNotifications={() =>
-            showNotification("Vous avez 3 notifications non lues.")
-          }
+          onNotifications={() => handleNavigation("notifications")}
         />
 
         <div className="mx-auto max-w-[1700px] p-4 sm:p-6 md:p-8 lg:p-10">
@@ -125,6 +111,13 @@ export default function GaragisteDashboard() {
           {["profile", "services", "zone"].includes(activePage) ? (
 
             <GarageProfileSection />
+
+          ) : activePage !== "dashboard" ? (
+
+            <GaragisteModulePage
+              page={activePage}
+              onBack={() => setActivePage("dashboard")}
+            />
 
           ) : (
 
@@ -138,19 +131,19 @@ export default function GaragisteDashboard() {
                   HERO / MESSAGE DE BIENVENUE
               ================================================= */}
 
-              <section className="relative mb-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#075985] via-[#0A6EAF] to-[#147FC1] p-6 text-white shadow-xl shadow-blue-900/10 md:p-9">
+              <section className="relative mb-10 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-[#E6F1FB] p-6 text-slate-900 shadow-[0_24px_70px_rgba(20,104,168,0.1)] md:p-9">
 
                 {/* Décorations */}
 
-                <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/10 blur-2xl" />
+                <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-200/40 blur-2xl" />
 
-                <div className="pointer-events-none absolute -bottom-20 right-20 h-40 w-40 rounded-full bg-cyan-300/10 blur-2xl" />
+                <div className="pointer-events-none absolute -bottom-20 right-20 h-40 w-40 rounded-full bg-cyan-200/60 blur-2xl" />
 
                 <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
                   <div>
 
-                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-blue-100">
+                    <div className="mb-3 flex items-center gap-2 text-sm font-medium text-[#1468A8]">
 
                       <MapPin className="h-4 w-4" />
 
@@ -160,11 +153,11 @@ export default function GaragisteDashboard() {
 
                     <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
 
-                      Bienvenue dans votre espace garagiste 👋
+                      Bienvenue dans votre espace garagiste
 
                     </h1>
 
-                    <p className="mt-2 max-w-2xl text-sm leading-6 text-blue-100 md:text-base">
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
 
                       Gérez vos demandes d'intervention, retrouvez les
                       automobilistes proches de vous et développez votre
@@ -176,7 +169,7 @@ export default function GaragisteDashboard() {
 
                   {/* Disponibilité */}
 
-                  <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur-md">
+                  <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-blue-100 bg-white/80 px-5 py-4 shadow-sm backdrop-blur-md">
 
                     <div
                       className={`flex h-11 w-11 items-center justify-center rounded-full ${
@@ -198,7 +191,7 @@ export default function GaragisteDashboard() {
 
                     <div>
 
-                      <p className="text-xs text-blue-100">
+                      <p className="text-xs text-slate-500">
                         Statut actuel
                       </p>
 
@@ -406,11 +399,7 @@ export default function GaragisteDashboard() {
                   </div>
 
                   <button
-                    onClick={() =>
-                      showNotification(
-                        "Vous avez 12 demandes disponibles."
-                      )
-                    }
+                    onClick={() => handleNavigation("notifications")}
                     className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
                   >
 
@@ -474,7 +463,7 @@ export default function GaragisteDashboard() {
       </main>
 
       {/* =====================================================
-          NOTIFICATION
+          NOTIFICATION & LIVE CHAT
       ====================================================== */}
 
       <Notification
@@ -482,6 +471,13 @@ export default function GaragisteDashboard() {
         onClose={() => setNotification("")}
       />
 
+      <LiveChatWidget
+        currentUserId="gar-1"
+        currentUserName="Garage Auto Express"
+        currentUserRole="garagiste"
+        isOpenDefault={activePage === "chat"}
+      />
+
     </div>
   )
-}
+}

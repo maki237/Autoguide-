@@ -13,9 +13,9 @@ export function DashboardHeader({
 }: DashboardHeaderProps) {
   return (
     <>
-      <header className="relative mb-6 flex items-start justify-between gap-5 overflow-hidden rounded-3xl bg-[#123b5d] p-5 text-white shadow-[0_18px_45px_rgba(18,59,93,0.18)] sm:mb-7 sm:p-7">
-        <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full border border-white/10" />
-        <div className="pointer-events-none absolute -bottom-24 right-24 h-48 w-48 rounded-full bg-[#2f86bf]/30 blur-2xl" />
+      <header className="relative mb-6 flex items-start justify-between gap-5 overflow-hidden rounded-3xl border border-blue-100 bg-white p-5 text-slate-900 shadow-[0_18px_45px_rgba(20,104,168,0.1)] sm:mb-7 sm:p-7">
+        <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full border border-blue-100" />
+        <div className="pointer-events-none absolute -bottom-24 right-24 h-48 w-48 rounded-full bg-blue-100/70 blur-2xl" />
 
         <div className="relative">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8dd3ff]">
@@ -23,10 +23,10 @@ export function DashboardHeader({
           </p>
 
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-            Bonjour {userName} 👋
+            Bonjour {userName}
           </h1>
 
-          <p className="mt-2 text-sm text-white/70 md:text-base">
+          <p className="mt-2 text-sm text-slate-600 md:text-base">
             Prête pour votre prochain trajet ?
           </p>
         </div>
@@ -47,13 +47,13 @@ export function DashboardHeader({
             justify-center
             rounded-xl
             border
-            border-white/20
-            bg-white/10
-            text-white
+            border-slate-200
+            bg-white
+            text-slate-600
             shadow-none
             transition
-            hover:border-white/40
-            hover:bg-white/20
+            hover:border-blue-200
+            hover:bg-blue-50
           "
           title="Notifications"
         >
@@ -133,7 +133,7 @@ export function DashboardHeader({
                 text-slate-600
               "
             >
-              🚗 Pensez à effectuer la révision de votre véhicule.
+              Pensez à effectuer la révision de votre véhicule.
             </div>
 
             <div
@@ -145,7 +145,7 @@ export function DashboardHeader({
                 text-slate-600
               "
             >
-              🔧 Un garage certifié est disponible près de vous.
+              Un garage certifié est disponible près de vous.
             </div>
 
           </div>

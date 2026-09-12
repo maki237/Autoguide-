@@ -3,7 +3,6 @@ import logo from "@/assets/LOGO.png"
 export default function Footer() {
   return (
     <footer
-      id="aide"
       className="border-t border-slate-300 bg-[#F1F3F5]"
     >
 

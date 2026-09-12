@@ -126,7 +126,7 @@ export function LoginForm({
   return (
     <div
       className={cn(
-        "min-h-screen w-full bg-[#EAF3F8] p-4 md:p-6 lg:p-10",
+        "min-h-screen w-full bg-[#F7FBFF] p-4 md:p-6 lg:p-10",
         className
       )}
       {...props}
@@ -145,8 +145,9 @@ export function LoginForm({
           max-w-6xl
           overflow-hidden
           rounded-[30px]
+          border border-white/10
           bg-white
-          shadow-[0_25px_80px_rgba(15,86,141,0.16)]
+          shadow-[0_25px_100px_rgba(42,24,120,0.28)]
         "
       >
         {/* =====================================================
@@ -435,7 +436,7 @@ export function LoginForm({
             w-full
             items-center
             justify-center
-            bg-white
+            bg-[#f8fafc]
             px-6
             py-10
             lg:w-1/2
@@ -805,150 +806,150 @@ export function LoginForm({
                   "
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
-                      fill="currentColor"
-                    />
-                  </svg>
-
-                  Apple
-                </button>
-              </div>
-
-              {/* CRÉATION DE COMPTE */}
-
-              <div className="pt-2 text-center">
-                <p className="text-sm text-slate-500">
-                  Nouveau sur AutoGuide+ ?
-
-                  <Link
-                    to="/register"
-                    className="
-                      ml-1
-                      font-semibold
-                      text-[#1468A8]
-                      transition-colors
-                      hover:text-[#0F568D]
-                      hover:underline
-                    "
-                  >
-                    Créer un compte
-                  </Link>
-                </p>
-              </div>
-
-              {/* SÉCURITÉ */}
-
-              <div className="flex items-center justify-center gap-2 pt-2">
-                <ShieldCheck
-                  className="h-4 w-4 text-[#1468A8]/60"
-                />
-
-                <span className="text-xs text-slate-400">
-                  Connexion sécurisée AutoGuide+
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ============================================================
-// CHAMP MOT DE PASSE
-// ============================================================
-
-function PasswordInput({
-  password,
-  setPassword,
-}: {
-  password: string
-  setPassword: Dispatch<SetStateAction<string>>
-}) {
-  const [showPassword, setShowPassword] = useState(false)
-
-  return (
-    <div className="group relative">
-      <Lock
-        className="
-          absolute
-          left-3
-          top-1/2
-          h-4
-          w-4
-          -translate-y-1/2
-          text-slate-400
-          transition-colors
-          group-focus-within:text-[#1468A8]
-        "
-      />
-
-      <input
-        id="password"
-        type={showPassword ? "text" : "password"}
-        value={password}
-        onChange={(event) =>
-          setPassword(event.target.value)
-        }
-        placeholder="Votre mot de passe"
-        required
-        autoComplete="current-password"
-        className="
-          h-12
-          w-full
-          rounded-xl
-          border
-          border-slate-200
-          bg-white
-          pl-10
-          pr-11
-          text-sm
-          text-slate-700
-          outline-none
-          transition-all
-          duration-300
-          placeholder:text-slate-400
-          hover:border-[#1468A8]/40
-          focus:border-[#1468A8]
-          focus:ring-4
-          focus:ring-[#1468A8]/10
-        "
-      />
-
-      <button
-        type="button"
-        onClick={() =>
-          setShowPassword((value) => !value)
-        }
-        className="
-          absolute
-          right-3
-          top-1/2
-          -translate-y-1/2
-          text-slate-400
-          transition-all
-          duration-200
-          hover:scale-110
-          hover:text-[#1468A8]
-        "
-        aria-label={
-          showPassword
-            ? "Masquer le mot de passe"
-            : "Afficher le mot de passe"
-        }
-      >
-        {showPassword ? (
-          <EyeOff className="h-4 w-4" />
-        ) : (
-          <Eye className="h-4 w-4" />
-        )}
-      </button>
-    </div>
-  )
-}
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    className="h-4 w-4" 
+                  > 
+                    <path 
+                      d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" 
+                      fill="currentColor" 
+                    /> 
+                  </svg> 
+ 
+                  Apple 
+                </button> 
+              </div> 
+ 
+              {/* CRÉATION DE COMPTE */} 
+ 
+              <div className="pt-2 text-center"> 
+                <p className="text-sm text-slate-500"> 
+                  Nouveau sur AutoGuide+ ? 
+ 
+                  <Link 
+                    to="/register" 
+                    className=" 
+                      ml-1 
+                      font-semibold 
+                      text-[#1468A8] 
+                      transition-colors 
+                      hover:text-[#0F568D] 
+                      hover:underline 
+                    " 
+                  > 
+                    Créer un compte 
+                  </Link> 
+                </p> 
+              </div> 
+ 
+              {/* SÉCURITÉ */} 
+ 
+              <div className="flex items-center justify-center gap-2 pt-2"> 
+                <ShieldCheck 
+                  className="h-4 w-4 text-[#1468A8]/60" 
+                /> 
+ 
+                <span className="text-xs text-slate-400"> 
+                  Connexion sécurisée AutoGuide+ 
+                </span> 
+              </div> 
+            </form> 
+          </div> 
+        </div> 
+      </div> 
+    </div> 
+  ) 
+} 
+ 
+// ============================================================ 
+// CHAMP MOT DE PASSE 
+// ============================================================ 
+ 
+function PasswordInput({ 
+  password, 
+  setPassword, 
+}: { 
+  password: string 
+  setPassword: Dispatch<SetStateAction<string>> 
+}) { 
+  const [showPassword, setShowPassword] = useState(false) 
+ 
+  return ( 
+    <div className="group relative"> 
+      <Lock 
+        className=" 
+          absolute 
+          left-3 
+          top-1/2 
+          h-4 
+          w-4 
+          -translate-y-1/2 
+          text-slate-400 
+          transition-colors 
+          group-focus-within:text-[#1468A8] 
+        " 
+      /> 
+ 
+      <input 
+        id="password" 
+        type={showPassword ? "text" : "password"} 
+        value={password} 
+        onChange={(event) => 
+          setPassword(event.target.value) 
+        } 
+        placeholder="Votre mot de passe" 
+        required 
+        autoComplete="current-password" 
+        className=" 
+          h-12 
+          w-full 
+          rounded-xl 
+          border 
+          border-slate-200 
+          bg-white 
+          pl-10 
+          pr-11 
+          text-sm 
+          text-slate-700 
+          outline-none 
+          transition-all 
+          duration-300 
+          placeholder:text-slate-400 
+          hover:border-[#1468A8]/40 
+          focus:border-[#1468A8] 
+          focus:ring-4 
+          focus:ring-[#1468A8]/10 
+        " 
+      /> 
+ 
+      <button 
+        type="button" 
+        onClick={() => 
+          setShowPassword((value) => !value) 
+        } 
+        className=" 
+          absolute 
+          right-3 
+          top-1/2 
+          -translate-y-1/2 
+          text-slate-400 
+          transition-all 
+          duration-200 
+          hover:scale-110 
+          hover:text-[#1468A8] 
+        " 
+        aria-label={ 
+          showPassword 
+            ? "Masquer le mot de passe" 
+            : "Afficher le mot de passe" 
+        } 
+      > 
+        {showPassword ? ( 
+          <EyeOff className="h-4 w-4" /> 
+        ) : ( 
+          <Eye className="h-4 w-4" /> 
+        )} 
+      </button> 
+    </div> 
+  ) 
+} 

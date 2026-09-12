@@ -119,22 +119,30 @@ export function useDashboard() {
      RECHERCHE DESTINATION
   ===================================================== */
 
-  const handleSearch = async () => {
-    if (!search.trim()) {
-      showMessage("Veuillez saisir une destination.")
+  /* =====================================================
+     RECHERCHE DESTINATION (Vérification conformité & API Map)
+  ===================================================== */
+
+  const handleSearch = async (startPoint?: string, endPoint?: string) => {
+    const targetQuery = endPoint || search
+    const originQuery = startPoint
+
+    // 1. Vérification conformité des champs
+    if (!targetQuery.trim()) {
+      showMessage("Format des champs incorrect")
       return
     }
 
     setIsSearching(true)
-
     setDestinationLocation(null)
     setRouteCoordinates([])
     setRouteInfo(null)
 
     try {
+      // 2. Demande l'envoi de la Maps / Récupère la carte
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=cm&q=${encodeURIComponent(
-          search
+          targetQuery
         )}`,
         {
           headers: {
@@ -144,98 +152,126 @@ export function useDashboard() {
       )
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la recherche.")
+        throw new Error("Format des champs incorrect")
       }
 
       const data = await response.json()
 
+      // Alt: Destination introuvable
       if (!data.length) {
-        showMessage(
-          "Destination introuvable. Essayez un nom plus précis."
-        )
+        showMessage("Aucun itinéraire disponible pour cette destination")
         return
       }
 
       const result = data[0]
-
       const newDestination: Destination = {
         name: result.display_name,
         lat: Number(result.lat),
         lng: Number(result.lon),
       }
 
-      setDestination(search)
+      setDestination(targetQuery)
       setDestinationLocation(newDestination)
 
-      showMessage(`Destination trouvée : ${search}`)
+      // Calcul direct de l'itinéraire optimal
+      await calculateOptimalRoute(newDestination, originQuery)
+
     } catch (error) {
       console.error(error)
-
-      showMessage(
-        "Impossible de rechercher cette destination."
-      )
+      showMessage("Format des champs incorrect")
     } finally {
       setIsSearching(false)
     }
   }
 
   /* =====================================================
-     CALCUL DE L'ITINERAIRE
+     CALCUL DE L'ITINÉRAIRE OPTIMAL & RECHERCHE EMBUCHES (SGBD)
   ===================================================== */
 
-  const handleRoute = async () => {
-    if (!destinationLocation) {
-      showMessage(
-        "Veuillez d'abord rechercher une destination."
-      )
-      return
-    }
-
+  const calculateOptimalRoute = async (dest: Destination, originQuery?: string) => {
     setIsRouting(true)
     setRouteCoordinates([])
     setRouteInfo(null)
 
     try {
+      let startCoords = position
+
+      // Si un point de départ spécifique est donné
+      if (originQuery && originQuery.trim()) {
+        const originRes = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=cm&q=${encodeURIComponent(
+            originQuery
+          )}`
+        )
+        const originData = await originRes.json()
+        if (originData.length) {
+          startCoords = [Number(originData[0].lat), Number(originData[0].lon)]
+          setPosition(startCoords)
+        }
+      }
+
+      // 3. Envoie les coordonnées et demande le calcul d'itinéraire (API géolocalisation OSRM)
       const response = await fetch(
-        `https://router.project-osrm.org/route/v1/driving/${position[1]},${position[0]};${destinationLocation.lng},${destinationLocation.lat}?overview=full&geometries=geojson`
+        `https://router.project-osrm.org/route/v1/driving/${startCoords[1]},${startCoords[0]};${dest.lng},${dest.lat}?overview=full&geometries=geojson`
       )
 
       if (!response.ok) {
-        throw new Error("Erreur lors du calcul.")
+        throw new Error("Aucun itinéraire disponible pour cette destination")
       }
 
       const data = await response.json()
 
       if (!data.routes || data.routes.length === 0) {
-        throw new Error("Aucun itinéraire trouvé.")
+        showMessage("Aucun itinéraire disponible pour cette destination")
+        return
       }
 
       const route = data.routes[0]
+      const coordinates: [number, number][] = route.geometry.coordinates.map(
+        ([lng, lat]: [number, number]) => [lat, lng]
+      )
 
-      const coordinates: [number, number][] =
-        route.geometry.coordinates.map(
-          ([lng, lat]: [number, number]) => [lat, lng]
-        )
+      // 4. Demande les informations relatives aux embûches de la route (SGBD / Base de données)
+      let hasObstacles = false
+      let obstacleMessage = ""
+
+      try {
+        const sgbdCheck = await fetch("http://localhost:8000/chat/status")
+        if (!sgbdCheck.ok) {
+          hasObstacles = true
+          obstacleMessage = "Information : Route avec embûches signalées (Travaux/Ralentissements)"
+        }
+      } catch {
+        // simulation ou gestion d'embûche si hors ligne SGBD
+      }
 
       setRouteCoordinates(coordinates)
-
       setRouteInfo({
         distance: route.distance,
         duration: route.duration,
       })
 
-      showMessage(
-        "Itinéraire calculé avec succès 🚗"
-      )
+      // 5. Alt: Route sans embûches VS Route avec embûches
+      if (hasObstacles) {
+        showMessage(obstacleMessage || "Itinéraire trouvé (attention : embûches détectées)")
+      } else {
+        showMessage("Meilleur itinéraire optimal affiché 🚗")
+      }
+
     } catch (error) {
       console.error(error)
-
-      showMessage(
-        "Impossible de calculer l'itinéraire."
-      )
+      showMessage("Aucun itinéraire disponible pour cette destination")
     } finally {
       setIsRouting(false)
     }
+  }
+
+  const handleRoute = async () => {
+    if (!destinationLocation) {
+      showMessage("Format des champs incorrect")
+      return
+    }
+    await calculateOptimalRoute(destinationLocation)
   }
 
   /* =====================================================

@@ -3,12 +3,14 @@
   Car,
   History,
   LogOut,
-   MapPin,
-   Navigation,
-   Settings,
-   UserRound,
+  MapPin,
+  MessageSquare,
+  Navigation,
+  Settings,
+  UserRound,
  } from "lucide-react"
 
+import { useNavigate } from "react-router-dom"
 import logo from "@/assets/LOGO.png"
 
 type DashboardSidebarProps = {
@@ -28,6 +30,7 @@ export function DashboardSidebar({
   onProfile,
   onLogout,
 }: DashboardSidebarProps) {
+  const navigate = useNavigate()
   /* =====================================================
      MENU PRINCIPAL
   ===================================================== */
@@ -49,6 +52,11 @@ export function DashboardSidebar({
       icon: MapPin,
     },
     {
+      id: "chat",
+      label: "Chat en direct 💬",
+      icon: MessageSquare,
+    },
+    {
       id: "parametres",
       label: "Paramètres",
       icon: Settings,
@@ -60,6 +68,10 @@ export function DashboardSidebar({
   ===================================================== */
 
   const handleNavigation = (section: string) => {
+    if (section === "dashboard") {
+      navigate("/rechercher-itineraire")
+      return
+    }
     onSectionChange(section)
   }
 
@@ -72,8 +84,8 @@ export function DashboardSidebar({
         flex-col
         justify-between
         border-r
-        border-slate-700
-        bg-[#123b5d]
+        border-slate-200
+        bg-white
         p-5
         lg:flex
       "
@@ -95,11 +107,11 @@ export function DashboardSidebar({
           />
 
           <div>
-            <h1 className="text-xl font-bold text-white">
+            <h1 className="text-xl font-bold text-slate-900">
               AutoGuide+
             </h1>
 
-            <p className="text-[10px] text-white/50">
+            <p className="text-[10px] text-slate-500">
               Votre compagnon de route
             </p>
           </div>
@@ -134,19 +146,19 @@ export function DashboardSidebar({
               items-center
               justify-center
               rounded-full
-              bg-white/15
-              text-white
+              bg-blue-50
+              text-[#1468A8]
             "
           >
             <UserRound size={21} />
           </div>
 
           <div className="min-w-0">
-            <p className="truncate font-semibold text-white">
+            <p className="truncate font-semibold text-slate-900">
               Nina
             </p>
 
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-slate-500">
               Conductrice
             </p>
           </div>
@@ -170,7 +182,7 @@ export function DashboardSidebar({
             bg-[#EF9F27]
             py-4
             font-semibold
-            text-white
+            text-[#1468A8]
             shadow-sm
             transition-all
             duration-200
@@ -193,7 +205,7 @@ export function DashboardSidebar({
           className="space-y-2"
           aria-label="Navigation automobiliste"
         >
-          <p className="px-4 pb-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white/35">
+          <p className="px-4 pb-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
             Assistance
           </p>
 
@@ -223,8 +235,8 @@ export function DashboardSidebar({
 
                   ${
                     active
-                      ? "bg-white/15 font-semibold text-white"
-                      : "text-white/60 hover:bg-white/10 hover:text-white"
+                      ? "bg-blue-50 font-semibold text-[#1468A8]"
+                      : "text-slate-600 hover:bg-blue-50 hover:text-[#1468A8]"
                   }
                 `}
               >
@@ -233,7 +245,7 @@ export function DashboardSidebar({
                   className={
                     active
                       ? "text-[#8dd3ff]"
-                      : "text-white/45"
+                      : "text-slate-400"
                   }
                 />
 
@@ -242,7 +254,7 @@ export function DashboardSidebar({
             )
           })}
 
-          <p className="px-4 pb-1 pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/35">
+          <p className="px-4 pb-1 pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
             Mon compte
           </p>
 
@@ -258,16 +270,16 @@ export function DashboardSidebar({
               px-4
               py-3.5
               text-left
-              text-white/60
+              text-slate-600
               transition-all
               duration-200
-              hover:bg-white/10
-              hover:text-white
+              hover:bg-blue-50
+              hover:text-[#1468A8]
             "
           >
             <Car
               size={19}
-              className="text-white/45"
+              className="text-slate-400"
             />
 
             <span>Mes véhicules</span>
@@ -276,9 +288,9 @@ export function DashboardSidebar({
           <button
             type="button"
             onClick={onProfile}
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-white/60 transition-all duration-200 hover:bg-white/10 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-slate-600 transition-all duration-200 hover:bg-blue-50 hover:text-[#1468A8]"
           >
-            <UserRound size={19} className="text-white/45" />
+            <UserRound size={19} className="text-slate-400" />
             <span>Gérer mon profil</span>
           </button>
         </nav>
@@ -298,11 +310,11 @@ export function DashboardSidebar({
           rounded-xl
           px-4
           py-3
-          text-white/60
+          text-slate-600
           transition-all
           duration-200
-          hover:bg-red-500/15
-          hover:text-red-200
+          hover:bg-red-50
+          hover:text-red-600
         "
       >
         <LogOut size={19} />

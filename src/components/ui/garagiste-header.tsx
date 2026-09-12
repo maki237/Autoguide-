@@ -67,7 +67,12 @@ export function GaragisteHeader({
         <option value="missions">Mes interventions</option>
         <option value="historique">Historique</option>
         <option value="profile">Profil du garage</option>
+        <option value="services">Services proposés</option>
+        <option value="zone">Zone & horaires</option>
+        <option value="notifications">Notifications & alertes</option>
         <option value="parametres">Paramètres</option>
+        <option value="support">Support</option>
+        <option value="emergency">Assistance urgente</option>
       </select>
 
     </header>
